@@ -8,43 +8,68 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { env } from "@/config/env";
 
 const contactSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(1, { message: "Name is required" })
-    .max(100, { message: "Name must be under 100 characters" }),
-  email: z
-    .string()
-    .trim()
-    .email({ message: "Enter a valid email" })
-    .max(255, { message: "Email must be under 255 characters" }),
-  message: z
-    .string()
-    .trim()
-    .min(4, { message: "Message must be at least 4 characters" })
-    .max(1000, { message: "Message must be under 1000 characters" }),
+  name: z.string().trim().min(1).max(100),
+  email: z.string().trim().email().max(255),
+  message: z.string().trim().min(4).max(1000),
 });
 
 type FieldErrors = Partial<Record<"name" | "email" | "message", string>>;
 type ContactValues = z.infer<typeof contactSchema>;
 
+// ✅ FIX: send to backend API instead of Telegram directly
+// const sendContactMessage = async (values: ContactValues) => {
+//   const response = await fetch("/api/contact", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(values),
+//   });
+
+//   const data = await response.json().catch(() => null);
+
+//   if (!response.ok) {
+//     throw new Error(data?.error || "Failed to send message");
+//   }
+
+//   return data;
+// };
+
 const sendContactMessage = async (values: ContactValues) => {
-  const response = await fetch("/api/contact", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(values),
-  });
+  if (!env.BOT_TOKEN || !env.CHAT_ID) {
+    throw new Error("Telegram env values are missing.");
+  }
 
-  const data = (await response.json().catch(() => null)) as
-    | { ok?: boolean; error?: string }
-    | null;
+  const text = `
+📩 New Contact Message
 
-  if (!response.ok) {
-    throw new Error(data?.error || "Failed to send message");
+👤 Name: ${values.name}
+📧 Email: ${values.email}
+💬 Message: ${values.message}
+`;
+
+  const response = await fetch(
+    `https://api.telegram.org/bot${env.BOT_TOKEN}/sendMessage`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        chat_id: env.CHAT_ID,
+        text,
+        parse_mode: "HTML",
+      }),
+    }
+  );
+
+  const data = await response.json();
+
+  if (!data.ok) {
+    throw new Error(data.description || "Telegram send failed");
   }
 
   return data;
@@ -65,7 +90,7 @@ export const Contact = () => {
     if (cooldown <= 0) return;
 
     const timer = setInterval(() => {
-      setCooldown((current) => current - 1);
+      setCooldown((c) => c - 1);
     }, 1000);
 
     return () => clearInterval(timer);
@@ -74,7 +99,7 @@ export const Contact = () => {
   const handleChange =
     (field: keyof typeof values) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setValues((current) => ({ ...current, [field]: e.target.value }));
+      setValues((prev) => ({ ...prev, [field]: e.target.value }));
     };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -102,13 +127,14 @@ export const Contact = () => {
 
     try {
       await sendContactMessage(result.data);
-      toast.success("Message sent to Telegram");
+      toast.success("Message sent successfully 🚀");
+
       setValues({ name: "", email: "", message: "" });
       setCooldown(10);
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Something went wrong";
-      toast.error(message);
+      toast.error(
+        error instanceof Error ? error.message : "Something went wrong"
+      );
     } finally {
       setSubmitting(false);
     }
@@ -129,7 +155,6 @@ export const Contact = () => {
               id="name"
               value={values.name}
               onChange={handleChange("name")}
-              maxLength={100}
             />
             {errors.name && (
               <p className="text-xs text-destructive">{errors.name}</p>
@@ -143,7 +168,6 @@ export const Contact = () => {
               type="email"
               value={values.email}
               onChange={handleChange("email")}
-              maxLength={255}
             />
             {errors.email && (
               <p className="text-xs text-destructive">{errors.email}</p>
@@ -157,7 +181,6 @@ export const Contact = () => {
               rows={5}
               value={values.message}
               onChange={handleChange("message")}
-              maxLength={1000}
             />
             {errors.message && (
               <p className="text-xs text-destructive">{errors.message}</p>

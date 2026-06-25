@@ -35,9 +35,15 @@ const sendJson = (
   res.end(JSON.stringify(payload));
 };
 
-const telegramContactPlugin = (env: Record<string, string>): Plugin => {
-  const botToken = normalizeEnvValue(env.BOT_TOKEN || env.VITE_BOT_TOKEN);
-  const chatId = normalizeEnvValue(env.CHAT_ID || env.VITE_CHAT_ID);
+const telegramContactPlugin = (mode: string): Plugin => {
+  const getTelegramCredentials = () => {
+    const env = loadEnv(mode, process.cwd(), "");
+
+    return {
+      botToken: normalizeEnvValue(env.BOT_TOKEN || env.VITE_BOT_TOKEN),
+      chatId: normalizeEnvValue(env.CHAT_ID || env.VITE_CHAT_ID),
+    };
+  };
 
   const handler = (
     req: IncomingMessage,
@@ -56,6 +62,8 @@ const telegramContactPlugin = (env: Record<string, string>): Plugin => {
     }
 
     void (async () => {
+      const { botToken, chatId } = getTelegramCredentials();
+
       if (!botToken || !chatId) {
         sendJson(res, 500, {
           error:
@@ -68,6 +76,14 @@ const telegramContactPlugin = (env: Record<string, string>): Plugin => {
         sendJson(res, 500, {
           error:
             "CHAT_ID must be your Telegram chat ID or channel username, not a URL.",
+        });
+        return;
+      }
+
+      if (/^@.+bot$/i.test(chatId)) {
+        sendJson(res, 500, {
+          error:
+            "CHAT_ID cannot be a bot username. Use a numeric chat ID or a channel/group username.",
         });
         return;
       }
@@ -119,6 +135,23 @@ const telegramContactPlugin = (env: Record<string, string>): Plugin => {
         | null;
 
       if (!telegramResponse.ok || telegramData?.ok === false) {
+        if (telegramResponse.status === 404) {
+          sendJson(res, 500, {
+            error:
+              "Telegram bot token was not found. Generate a fresh token with BotFather and update BOT_TOKEN in .env.",
+          });
+          return;
+        }
+
+        if (telegramResponse.status === 400) {
+          sendJson(res, 400, {
+            error:
+              telegramData?.description ||
+              "Telegram rejected the request. Check CHAT_ID and bot permissions.",
+          });
+          return;
+        }
+
         sendJson(res, 502, {
           error:
             telegramData?.description ||
@@ -148,8 +181,6 @@ const telegramContactPlugin = (env: Record<string, string>): Plugin => {
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), "");
-
   return {
     server: {
       host: "::",
@@ -160,7 +191,7 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       react(),
-      telegramContactPlugin(env),
+      telegramContactPlugin(mode),
       mode === "development" && componentTagger(),
     ].filter(Boolean),
     resolve: {
