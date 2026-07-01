@@ -18,7 +18,7 @@ export const profile = {
 
 export const about = {
   bio: [
-    "I am a second-year Semester 2 Information Technology student at the Royal University of Phnom Penh and an aspiring Full-Stack Developer. I have hands-on experience in web development using HTML, CSS, JavaScript, React.js, Tailwind CSS, PHP/Laravel, MySQL, and PostgreSQL.",
+    "I am a Thirt Year Information Technology student at the Royal University of Phnom Penh and an aspiring Full-Stack Developer. I have hands-on experience in web development using HTML, CSS, JavaScript, React.js, Tailwind CSS, PHP/Laravel, MySQL, and PostgreSQL.",
     "I completed a Backend Development Internship at KRU IT Solution, where I gained practical experience in building and maintaining web applications, working with databases, and collaborating in a development environment.",
     "I am passionate about learning modern technologies, writing clean and maintainable code, and continuously improving my skills in both frontend and backend development. My goal is to build scalable and user-friendly applications while growing as a professional software developer.",
   ],
