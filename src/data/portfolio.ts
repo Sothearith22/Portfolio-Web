@@ -2,6 +2,7 @@ import { env } from "@/config/env";
 import electronicImage from "@/assets/electronic.png";
 import ten11Image from "@/assets/ten11.png";
 import studentImage from "@/assets/student.png";
+import BookingImage from "@/assets/booking.png";
 export const profile = {
   name: "Sothearith Kim",
   title: "Full-Stack Developer",
@@ -67,7 +68,7 @@ export const projects: Project[] = [
   },
     {
     title: "Booking System Full-Stack Application",
-    image: studentImage,
+    image: BookingImage,
     description: "A comprehensive Full-Stack ERP solution for educational institutions. This platform features a secure Role-Based Access Control (RBAC) system allowing Admins to manage academic records, real-time attendance tracking, and automated reporting.",
     stack: ["React.js", "Laravel", "Tailwind", "MYSQL"],
     // github: "https://github.com/Sothearith22/S",
