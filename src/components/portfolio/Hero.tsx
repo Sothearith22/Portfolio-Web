@@ -27,7 +27,9 @@ export const Hero = () => {
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <Link to="/contact">View CV</Link>
+              <a href={profile.resume} target="_blank" rel="noreferrer">
+                View CV
+              </a>
             </Button>
           </div>
 

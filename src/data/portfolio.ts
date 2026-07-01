@@ -10,6 +10,7 @@ export const profile = {
     "Motivated Information Technology student at the Royal University of Phnom Penh with experience in web application development using Java, PHP/Laravel, JavaScript, React.js, and SQL databases. Strong understanding of object-oriented programming, RESTful APIs, and database design. Eager to apply technical skills and continue learning as a Junior Web Developer or Backend Developer.",
   location: "Phnom Penh",
   email: env.contactEmail,
+  resume: env.resume,
   socials: {
     github: env.githubUrl,
   },
