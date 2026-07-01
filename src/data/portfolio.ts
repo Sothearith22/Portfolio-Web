@@ -27,7 +27,7 @@ export const about = {
 export const skills: { category: string; items: string[] }[] = [
   { category: "Frontend", items: ["React", "TypeScript", "Tailwind CSS", "Vite"] },
   { category: "Backend", items: ["Laravel", "Spring Boot", "PostgreSQL","MySQL", "REST API"] },
-  { category: "Tool", items: ["Git", "Docker", "Github", "Figma", "Postman"] },
+  { category: "Tool", items: ["Git", "Docker", "Github", "Postman"] },
 ];
 
 export interface Project {
