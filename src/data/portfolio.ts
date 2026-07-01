@@ -1,7 +1,7 @@
 import { env } from "@/config/env";
 import electronicImage from "@/assets/electronic.png";
 import ten11Image from "@/assets/ten11.png";
-
+import studentImage from "@/assets/student.png";
 export const profile = {
   name: "Sothearith Kim",
   title: "Full-Stack Developer",
@@ -39,14 +39,7 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-  // {
-  //   title: "Student Management System",
-  //   image: "",
-  //   description: "A comprehensive Full-Stack ERP solution for educational institutions. This platform features a secure Role-Based Access Control (RBAC) system allowing Admins to manage academic records, real-time attendance tracking, and automated reporting.",
-  //   stack: ["React.js", "Laravel", "Tailwind", "MYSQL"],
-  //   github: "https://github.com/Sothearith22/System-Management-Student",
-  //   // demo: "Local",
-  // },
+
   {
     title: "ElECTRONIC STORE",
     image: electronicImage,
@@ -62,6 +55,22 @@ export const projects: Project[] = [
     stack: ["React", "Tailwind CSS", "Vercel"],
     github: "https://github.com/Sothearith22/Project_TEN11",
     demo: "https://project-ten-11.vercel.app/"
+  },
+  {
+    title: "Student Management System",
+    image: studentImage,
+    description: "A comprehensive Full-Stack ERP solution for educational institutions. This platform features a secure Role-Based Access Control (RBAC) system allowing Admins to manage academic records, real-time attendance tracking, and automated reporting.",
+    stack: ["React.js", "Laravel", "Tailwind", "MYSQL"],
+    github: "https://github.com/Sothearith22/System-Management-Student",
+    // demo: "",
+  },
+    {
+    title: "Booking System Full-Stack Application",
+    image: studentImage,
+    description: "A comprehensive Full-Stack ERP solution for educational institutions. This platform features a secure Role-Based Access Control (RBAC) system allowing Admins to manage academic records, real-time attendance tracking, and automated reporting.",
+    stack: ["React.js", "Laravel", "Tailwind", "MYSQL"],
+    // github: "https://github.com/Sothearith22/S",
+    // demo: "",
   },
 ];
 
