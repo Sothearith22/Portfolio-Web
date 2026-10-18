@@ -123,7 +123,7 @@ export const profile = { ... }
 // About bio paragraphs and core focus
 export const about = { bio: string[], coreFocus: string }
 
-// Hard skills grouped by category (Programming, Front-End, Back-End, Database, Tools)
+// Hard skills grouped by 5 categories: ERP Development, Backend Development, Frontend Development, Databases, Developer Tools
 export const skills: { category: string; items: string[] }[]
 
 // Soft skills & languages from CV
@@ -145,17 +145,18 @@ export const reference: { name: string; role: string; company: string; phone: st
 // Projects list
 export interface Project {
   title: string;
-  image: string;
+  image?: string;
   description: string;
   stack: string[];
-  category: "Full-Stack" | "Frontend" | "Backend";
+  category: "Full-Stack" | "Frontend" | "Backend" | "ERP";
   status?: string;
-  github?: string;   // optional
-  demo?: string;     // optional
+  github?: string;         // optional backend or main repo
+  githubFrontend?: string; // optional frontend repo
+  demo?: string;           // optional
 }
 export const projects: Project[]
 
-// Work experience (KRU IT Solution School Management System)
+// Work experience (RMA Cambodia & KRU IT Solution)
 export interface ExperienceItem {
   role: string;
   company: string;
@@ -164,6 +165,7 @@ export interface ExperienceItem {
   description: string;
   highlights: string[];
   technologies: string[];
+  isCurrent?: boolean;
 }
 export const experience: ExperienceItem[]
 ```

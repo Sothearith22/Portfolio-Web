@@ -50,9 +50,19 @@ export const Experience = () => {
                     </div>
                   </div>
 
-                  <Badge variant="outline" className="border-primary/40 bg-primary/10 text-primary font-mono text-xs">
-                    Internship
-                  </Badge>
+                  {item.isCurrent ? (
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/15 px-3 py-1 font-mono text-xs font-bold text-primary shadow-sm">
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+                      </span>
+                      Current Role
+                    </span>
+                  ) : (
+                    <Badge variant="outline" className="border-primary/40 bg-primary/10 text-primary font-mono text-xs">
+                      Completed Internship
+                    </Badge>
+                  )}
                 </div>
 
                 {/* Description */}
@@ -121,13 +131,13 @@ export const Experience = () => {
           <Card className="border border-primary/25 bg-gradient-to-r from-primary/10 via-card to-primary/5 p-5 shadow-card flex flex-col justify-between space-y-4">
             <div className="space-y-1">
               <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary uppercase tracking-wider">
-                <Sparkles className="h-3.5 w-3.5" /> Available for Hire
+                <Sparkles className="h-3.5 w-3.5" /> Career Focus
               </div>
               <h4 className="text-base font-bold text-foreground">
-                Seeking Junior Web Developer Roles
+                Odoo ERP & Full-Stack Development
               </h4>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Open to junior full-time positions, internships, or full-stack projects in Phnom Penh or remote.
+                Open to technical collaborations, ERP customization, backend engineering, and full-stack web roles in Phnom Penh or remote.
               </p>
             </div>
 

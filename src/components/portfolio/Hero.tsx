@@ -47,7 +47,7 @@ export const Hero = () => {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
             </span>
-            <span>Available for Junior & Internship roles</span>
+            <span>Odoo Developer Intern @ RMA Cambodia</span>
           </div>
 
           <div>
@@ -76,13 +76,13 @@ export const Hero = () => {
             </div>
             <div className="h-8 w-px bg-border/60" />
             <div>
-              <p className="font-mono text-xl font-bold text-foreground">4+ Projects</p>
-              <p className="text-xs text-muted-foreground">Web Applications</p>
+              <p className="font-mono text-xl font-bold text-foreground">6 Projects</p>
+              <p className="text-xs text-muted-foreground">ERP & Full-Stack</p>
             </div>
             <div className="h-8 w-px bg-border/60" />
             <div>
-              <p className="font-mono text-xl font-bold text-foreground">Internship</p>
-              <p className="text-xs text-muted-foreground">Backend Completed</p>
+              <p className="font-mono text-xl font-bold text-foreground">2 Internships</p>
+              <p className="text-xs text-muted-foreground">RMA & KRU IT Solution</p>
             </div>
           </div>
 
@@ -140,8 +140,8 @@ export const Hero = () => {
           {/* Floating interactive badge */}
           <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-4 rounded-full border border-border/80 bg-background/95 px-4 py-2 shadow-card backdrop-blur flex items-center gap-2.5 animate-float">
             <span className="flex h-2 w-2 rounded-full bg-primary animate-ping" />
-            <span className="text-xs font-semibold tracking-wide text-foreground">Full-Stack Ready</span>
-            <span className="text-muted-foreground text-xs font-mono">React • Laravel</span>
+            <span className="text-xs font-semibold tracking-wide text-foreground">ERP & Full-Stack</span>
+            <span className="text-muted-foreground text-xs font-mono">Odoo • Spring • React</span>
           </div>
         </div>
       </div>

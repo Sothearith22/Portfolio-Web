@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import { Check, Clock, Copy, Github, Mail, MapPin, Send, Sparkles } from "lucide-react";
+import { Check, Clock, Copy, Github, Mail, MapPin, Phone, Send, Sparkles } from "lucide-react";
 import { Section } from "./Section";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

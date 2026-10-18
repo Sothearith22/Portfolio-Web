@@ -7,29 +7,29 @@ const CATEGORY_META: Record<
   string,
   { icon: typeof Code2; description: string; badge: string }
 > = {
-  Programming: {
-    icon: Code2,
-    description: "Core languages, object-oriented concepts, and algorithmic thinking.",
-    badge: "Languages",
+  "ERP Development": {
+    icon: Cpu,
+    description: "Odoo framework, Python architecture, XML views, and business workflows.",
+    badge: "Enterprise ERP",
   },
-  "Front-End": {
-    icon: Layers,
-    description: "Building responsive, component-driven UI with modern styling.",
-    badge: "Client-side",
-  },
-  "Back-End": {
+  "Backend Development": {
     icon: Server,
-    description: "REST APIs, secure authentication, error handling, and business logic.",
+    description: "RESTful APIs, Spring Boot & Laravel, Spring Security JWT, and error handling.",
     badge: "Server-side",
   },
-  Database: {
+  "Frontend Development": {
+    icon: Layers,
+    description: "Responsive, component-driven UI with React.js, TypeScript, and Tailwind CSS.",
+    badge: "Client-side",
+  },
+  Databases: {
     icon: Database,
-    description: "Relational database modeling, schema design, and data storage.",
+    description: "Relational database modeling, schema design, and query optimization.",
     badge: "Databases",
   },
-  Tools: {
+  "Developer Tools": {
     icon: Terminal,
-    description: "Version control workflows, API testing, and containerization.",
+    description: "Git workflows, Docker containerization, CI/CD pipelines, and API documentation.",
     badge: "DevOps & Tools",
   },
 };

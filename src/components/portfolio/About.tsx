@@ -5,12 +5,14 @@ import {
   BookOpen,
   Calendar,
   Code2,
+  Cpu,
   Database,
   GraduationCap,
   Globe2,
   Layers3,
   MapPin,
   Rocket,
+  Server,
   Sparkles,
 } from "lucide-react";
 
@@ -26,24 +28,24 @@ type FocusCard = {
 
 const focusCards: FocusCard[] = [
   {
+    icon: Cpu,
+    title: "ERP Development",
+    description: "Odoo module development, Python business logic, XML views, and ERP customization.",
+  },
+  {
+    icon: Server,
+    title: "Backend Engineering",
+    description: "Java/Spring Boot and PHP/Laravel, REST APIs, JWT security, and rate limiting.",
+  },
+  {
     icon: Code2,
-    title: "Frontend",
-    description: "React.js, Tailwind CSS, and TypeScript for responsive, fast UI interfaces.",
+    title: "Frontend Architecture",
+    description: "React.js, TypeScript, and Tailwind CSS for responsive, modern web interfaces.",
   },
   {
     icon: Database,
-    title: "Backend",
-    description: "PHP/Laravel, Spring Boot, REST APIs, and relational database modeling.",
-  },
-  {
-    icon: Layers3,
-    title: "Databases",
-    description: "MySQL and PostgreSQL with secure queries, schema design, and migrations.",
-  },
-  {
-    icon: Rocket,
-    title: "Delivery",
-    description: "Git/GitHub team collaboration, clean code, and continuous learning.",
+    title: "Database Modeling",
+    description: "PostgreSQL and MySQL schema design, relational integrity, and query optimization.",
   },
 ];
 
@@ -56,12 +58,12 @@ const quickFacts = [
   {
     icon: GraduationCap,
     label: "Degree",
-    value: "IT @ RUPP",
+    value: "IT @ RUPP (Year 3)",
   },
   {
     icon: Sparkles,
     label: "Role Target",
-    value: "Junior Web Developer",
+    value: "Odoo & Full-Stack",
   },
 ];
 
@@ -88,7 +90,7 @@ export const About = () => {
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm text-primary">
               <Sparkles className="h-4 w-4" />
-              Junior Web Developer — Full-Stack & Backend Focus
+              Odoo Developer Intern — ERP & Full-Stack Focus
             </div>
 
             <div className="space-y-4">
