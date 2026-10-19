@@ -2,8 +2,103 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { useTheme } from "@/hooks/use-theme";
 
-// Helper to generate a soft, circular glowing particle sprite texture
-function createParticleTexture(): THREE.CanvasTexture {
+interface TechIconConfig {
+  label: string;
+  color: string;
+  secondaryColor?: string;
+  sub?: string;
+}
+
+const PROGRAMMING_ICONS: TechIconConfig[] = [
+  { label: "</>", color: "#38bdf8", sub: "Code" },
+  { label: "⚛ React", color: "#00d8ff" },
+  { label: "{ }", color: "#f59e0b", sub: "JSON" },
+  { label: "TS", color: "#3178c6", sub: "TypeScript" },
+  { label: "Python", color: "#60a5fa" },
+  { label: "Spring", color: "#10b981", sub: "Boot" },
+  { label: "Odoo", color: "#c084fc", sub: "ERP" },
+  { label: "SQL", color: "#818cf8", sub: "Postgres" },
+  { label: ">_ run", color: "#34d399", sub: "CLI" },
+  { label: "API", color: "#f472b6", sub: "REST" },
+  { label: "git", color: "#fb923c", sub: "Branch" },
+  { label: "Laravel", color: "#fb7185" },
+  { label: "Docker", color: "#38bdf8" },
+  { label: "Tailwind", color: "#22d3ee" },
+  { label: "/* */", color: "#94a3b8", sub: "Comment" },
+  { label: "Node.js", color: "#4ade80" },
+  { label: "Java", color: "#f87171" },
+  { label: "HTML5", color: "#fb923c" },
+];
+
+// Helper to create a crisp 2D canvas texture for a 3D programming icon badge
+function createCodeIconTexture(icon: TechIconConfig, isDark: boolean): THREE.CanvasTexture {
+  const canvas = document.createElement("canvas");
+  canvas.width = 256;
+  canvas.height = 100;
+  const ctx = canvas.getContext("2d");
+
+  if (ctx) {
+    // 1. Draw Glass Pill Background
+    const x = 12;
+    const y = 12;
+    const w = 232;
+    const h = 76;
+    const radius = 22;
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+
+    // Glass fill
+    ctx.fillStyle = isDark ? "rgba(13, 20, 36, 0.85)" : "rgba(245, 248, 255, 0.9)";
+    ctx.fill();
+
+    // Glowing Neon Border
+    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = icon.color;
+    ctx.shadowColor = icon.color;
+    ctx.shadowBlur = 14;
+    ctx.stroke();
+    ctx.restore();
+
+    // 2. Main Icon / Text Label
+    ctx.save();
+    ctx.font = "bold 30px 'JetBrains Mono', Consolas, monospace";
+    ctx.fillStyle = isDark ? "#ffffff" : "#0f172a";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    if (icon.sub) {
+      // Main text slightly up
+      ctx.fillText(icon.label, 128, 44);
+
+      // Subtitle tag
+      ctx.font = "bold 16px 'JetBrains Mono', Consolas, monospace";
+      ctx.fillStyle = icon.color;
+      ctx.fillText(icon.sub, 128, 66);
+    } else {
+      ctx.fillText(icon.label, 128, 50);
+    }
+
+    ctx.restore();
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.needsUpdate = true;
+  return texture;
+}
+
+// Helper to generate a soft glowing star dust texture
+function createStarTexture(): THREE.CanvasTexture {
   const canvas = document.createElement("canvas");
   canvas.width = 64;
   canvas.height = 64;
@@ -13,7 +108,7 @@ function createParticleTexture(): THREE.CanvasTexture {
     const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
     gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
     gradient.addColorStop(0.2, "rgba(56, 189, 248, 0.85)");
-    gradient.addColorStop(0.5, "rgba(168, 85, 247, 0.4)");
+    gradient.addColorStop(0.6, "rgba(168, 85, 247, 0.35)");
     gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
 
     ctx.fillStyle = gradient;
@@ -55,111 +150,97 @@ export const ThreeBackground = () => {
     container.appendChild(renderer.domElement);
 
     const isDark = theme === "dark";
-    const particleTexture = createParticleTexture();
 
-    // 2. Interactive 3D Cosmic Constellation Nodes
-    const particleCount = window.innerWidth < 768 ? 120 : 220;
-    const maxDistance = window.innerWidth < 768 ? 12 : 15;
+    // 2. Floating 3D Programming Icons (Three.js Sprites in 3D Space)
+    const iconSprites: {
+      sprite: THREE.Sprite;
+      initialX: number;
+      initialY: number;
+      initialZ: number;
+      speedX: number;
+      speedY: number;
+      phase: number;
+    }[] = [];
 
-    const particlePositions = new Float32Array(particleCount * 3);
-    const particleVelocities: { x: number; y: number; z: number }[] = [];
-    const colors = new Float32Array(particleCount * 3);
+    const activeIcons = window.innerWidth < 768 ? PROGRAMMING_ICONS.slice(0, 10) : PROGRAMMING_ICONS;
 
-    const cyanColor = new THREE.Color(isDark ? 0x38bdf8 : 0x0284c7);
-    const purpleColor = new THREE.Color(isDark ? 0xa855f7 : 0x7c3aed);
-    const pinkColor = new THREE.Color(isDark ? 0xec4899 : 0x4f46e5);
-
-    for (let i = 0; i < particleCount; i++) {
-      // Confine X, Y, Z so particles never clip into the camera lens
-      const x = (Math.random() - 0.5) * 85;
-      const y = (Math.random() - 0.5) * 65;
-      const z = -10 - Math.random() * 45; // Safe distance behind content
-
-      particlePositions[i * 3] = x;
-      particlePositions[i * 3 + 1] = y;
-      particlePositions[i * 3 + 2] = z;
-
-      particleVelocities.push({
-        x: (Math.random() - 0.5) * 0.04,
-        y: (Math.random() - 0.5) * 0.04,
-        z: (Math.random() - 0.5) * 0.02,
+    activeIcons.forEach((iconDef, idx) => {
+      const texture = createCodeIconTexture(iconDef, isDark);
+      const spriteMaterial = new THREE.SpriteMaterial({
+        map: texture,
+        transparent: true,
+        opacity: isDark ? 0.72 : 0.6,
+        depthWrite: false,
       });
 
-      const mixRatio = Math.random();
-      const col = mixRatio < 0.5 
-        ? cyanColor.clone().lerp(purpleColor, mixRatio * 2) 
-        : purpleColor.clone().lerp(pinkColor, (mixRatio - 0.5) * 2);
+      const sprite = new THREE.Sprite(spriteMaterial);
 
-      colors[i * 3] = col.r;
-      colors[i * 3 + 1] = col.g;
-      colors[i * 3 + 2] = col.b;
+      // Distribute randomly across 3D coordinates
+      // Ensure we keep clearance away from central face / text
+      let posX = (Math.random() - 0.5) * 80;
+      let posY = (Math.random() - 0.5) * 60;
+      const posZ = -12 - Math.random() * 32; // Depth plane
+
+      // Keep face area clear: portrait is around x: 12, y: 0
+      if (posX > 4 && posX < 22 && posY > -14 && posY < 14) {
+        posX = posX < 13 ? -18 - Math.random() * 15 : 28 + Math.random() * 15;
+      }
+
+      // Sprite size in 3D space
+      const scaleX = window.innerWidth < 768 ? 5.2 : 6.4;
+      const scaleY = scaleX * (100 / 256);
+      sprite.scale.set(scaleX, scaleY, 1);
+      sprite.position.set(posX, posY, posZ);
+
+      scene.add(sprite);
+
+      iconSprites.push({
+        sprite,
+        initialX: posX,
+        initialY: posY,
+        initialZ: posZ,
+        speedX: 0.25 + Math.random() * 0.35,
+        speedY: 0.3 + Math.random() * 0.45,
+        phase: (idx / activeIcons.length) * Math.PI * 2,
+      });
+    });
+
+    // 3. Subtle Ambient 3D Star Dust Background
+    const starCount = window.innerWidth < 768 ? 90 : 180;
+    const starGeometry = new THREE.BufferGeometry();
+    const starPositions = new Float32Array(starCount * 3);
+    const starTexture = createStarTexture();
+
+    for (let i = 0; i < starCount; i++) {
+      starPositions[i * 3] = (Math.random() - 0.5) * 85;
+      starPositions[i * 3 + 1] = (Math.random() - 0.5) * 65;
+      starPositions[i * 3 + 2] = -15 - Math.random() * 40;
     }
 
-    const particleGeometry = new THREE.BufferGeometry();
-    particleGeometry.setAttribute("position", new THREE.BufferAttribute(particlePositions, 3));
-    particleGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-
-    // Points Material: Round glowing texture with clamped size
-    const particleMaterial = new THREE.PointsMaterial({
-      size: window.innerWidth < 768 ? 1.8 : 2.4,
-      map: particleTexture,
-      vertexColors: true,
+    starGeometry.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
+    const starMaterial = new THREE.PointsMaterial({
+      size: window.innerWidth < 768 ? 1.4 : 1.8,
+      map: starTexture,
       transparent: true,
-      opacity: isDark ? 0.75 : 0.5,
+      opacity: isDark ? 0.5 : 0.35,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
 
-    const particles = new THREE.Points(particleGeometry, particleMaterial);
-    scene.add(particles);
+    const starParticles = new THREE.Points(starGeometry, starMaterial);
+    scene.add(starParticles);
 
-    // 3. Constellation Dynamic Line Segments
-    const maxLines = (particleCount * (particleCount - 1)) / 2;
-    const linePositions = new Float32Array(maxLines * 6);
-    const lineColors = new Float32Array(maxLines * 6);
-
-    const linesGeometry = new THREE.BufferGeometry();
-    linesGeometry.setAttribute("position", new THREE.BufferAttribute(linePositions, 3).setUsage(THREE.DynamicDrawUsage));
-    linesGeometry.setAttribute("color", new THREE.BufferAttribute(lineColors, 3).setUsage(THREE.DynamicDrawUsage));
-
-    const lineMaterial = new THREE.LineBasicMaterial({
-      vertexColors: true,
-      transparent: true,
-      opacity: isDark ? 0.28 : 0.16,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-
-    const linesMesh = new THREE.LineSegments(linesGeometry, lineMaterial);
-    scene.add(linesMesh);
-
-    // 4. Elegant 3D Celestial Orbital Gyroscope Rings (Clean, non-obtrusive geometry)
-    const ringGroup = new THREE.Group();
-
-    // Ring 1 (Cyan neon)
-    const ring1Geo = new THREE.TorusGeometry(10, 0.04, 16, 120);
-    const ring1Mat = new THREE.MeshBasicMaterial({
+    // 4. Subtle Orbital Ring Accentuating Avatar in 3D Space
+    const ringGeo = new THREE.TorusGeometry(11, 0.035, 16, 100);
+    const ringMat = new THREE.MeshBasicMaterial({
       color: isDark ? 0x38bdf8 : 0x0ea5e9,
       transparent: true,
-      opacity: isDark ? 0.35 : 0.2,
+      opacity: isDark ? 0.3 : 0.15,
     });
-    const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
-    ring1.rotation.x = Math.PI / 4;
-    ringGroup.add(ring1);
-
-    // Ring 2 (Purple neon)
-    const ring2Geo = new THREE.TorusGeometry(12.5, 0.035, 16, 120);
-    const ring2Mat = new THREE.MeshBasicMaterial({
-      color: isDark ? 0xa855f7 : 0x8b5cf6,
-      transparent: true,
-      opacity: isDark ? 0.25 : 0.15,
-    });
-    const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
-    ring2.rotation.y = Math.PI / 3;
-    ringGroup.add(ring2);
-
-    ringGroup.position.set(13, 0, -18);
-    scene.add(ringGroup);
+    const orbitalRing = new THREE.Mesh(ringGeo, ringMat);
+    orbitalRing.position.set(13, 0, -20);
+    orbitalRing.rotation.x = Math.PI / 3;
+    scene.add(orbitalRing);
 
     // 5. Mouse Parallax Tracking
     let targetMouseX = 0;
@@ -175,7 +256,7 @@ export const ThreeBackground = () => {
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
-    // 6. Responsive Resize
+    // 6. Handle Responsive Resize
     const handleResize = () => {
       if (!container) return;
       const width = container.clientWidth;
@@ -185,13 +266,10 @@ export const ThreeBackground = () => {
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      // Adjust rings for mobile vs desktop
       if (width < 1024) {
-        ringGroup.position.set(0, 6, -22);
-        ringGroup.scale.set(0.7, 0.7, 0.7);
+        orbitalRing.position.set(0, 6, -22);
       } else {
-        ringGroup.position.set(14, 0, -18);
-        ringGroup.scale.set(1, 1, 1);
+        orbitalRing.position.set(13, 0, -20);
       }
     };
 
@@ -205,83 +283,41 @@ export const ThreeBackground = () => {
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
 
-      const delta = clock.getDelta();
-      const elapsed = clock.getElapsedTime();
+      const elapsedTime = clock.getElapsedTime();
 
-      // Smooth mouse interpolation
+      // Smooth mouse lerp
       currentMouseX += (targetMouseX - currentMouseX) * 0.04;
       currentMouseY += (targetMouseY - currentMouseY) * 0.04;
 
       if (!prefersReducedMotion) {
-        // Rotate celestial orbital rings
-        ring1.rotation.z += delta * 0.2;
-        ring1.rotation.x += delta * 0.1;
-        ring2.rotation.y += delta * 0.18;
-        ring2.rotation.z -= delta * 0.12;
+        // Animate each 3D Programming Icon Badge
+        iconSprites.forEach((item) => {
+          // Floating harmonic oscillation
+          const floatY = Math.sin(elapsedTime * item.speedY + item.phase) * 1.6;
+          const floatX = Math.cos(elapsedTime * item.speedX + item.phase) * 1.2;
 
-        ringGroup.rotation.y = currentMouseX * 0.3;
-        ringGroup.rotation.x = -currentMouseY * 0.25;
+          // Parallax displacement based on depth Z
+          const depthFactor = (item.initialZ + 50) / 40;
+          const parallaxX = currentMouseX * 3.5 * depthFactor;
+          const parallaxY = -currentMouseY * 3 * depthFactor;
 
-        // Animate particles & dynamic constellation lines
-        const posAttr = particleGeometry.getAttribute("position") as THREE.BufferAttribute;
-        const positionsArr = posAttr.array as Float32Array;
+          item.sprite.position.x = item.initialX + floatX + parallaxX;
+          item.sprite.position.y = item.initialY + floatY + parallaxY;
 
-        let lineVertexCount = 0;
+          // Gentle tilt oscillation
+          item.sprite.material.rotation = Math.sin(elapsedTime * 0.4 + item.phase) * 0.06;
+        });
 
-        for (let i = 0; i < particleCount; i++) {
-          const idx = i * 3;
+        // Rotate ambient star particles & ring
+        starParticles.rotation.y = elapsedTime * 0.02 + currentMouseX * 0.1;
+        starParticles.rotation.x = elapsedTime * 0.01 - currentMouseY * 0.08;
 
-          // Update position with velocity
-          positionsArr[idx] += particleVelocities[i].x;
-          positionsArr[idx + 1] += particleVelocities[i].y;
-          positionsArr[idx + 2] += particleVelocities[i].z;
+        orbitalRing.rotation.z += 0.003;
+        orbitalRing.rotation.y = currentMouseX * 0.2;
 
-          // Bounds bounce
-          if (positionsArr[idx] < -45 || positionsArr[idx] > 45) particleVelocities[i].x *= -1;
-          if (positionsArr[idx + 1] < -35 || positionsArr[idx + 1] > 35) particleVelocities[i].y *= -1;
-          if (positionsArr[idx + 2] < -55 || positionsArr[idx + 2] > -10) particleVelocities[i].z *= -1;
-
-          // Connect nearby particles with subtle glowing lines
-          for (let j = i + 1; j < particleCount; j++) {
-            const jdx = j * 3;
-            const dx = positionsArr[idx] - positionsArr[jdx];
-            const dy = positionsArr[idx + 1] - positionsArr[jdx + 1];
-            const dz = positionsArr[idx + 2] - positionsArr[jdx + 2];
-            const distSq = dx * dx + dy * dy + dz * dz;
-
-            if (distSq < maxDistance * maxDistance) {
-              const alpha = 1.0 - Math.sqrt(distSq) / maxDistance;
-
-              linePositions[lineVertexCount * 3] = positionsArr[idx];
-              linePositions[lineVertexCount * 3 + 1] = positionsArr[idx + 1];
-              linePositions[lineVertexCount * 3 + 2] = positionsArr[idx + 2];
-
-              lineColors[lineVertexCount * 3] = colors[idx] * alpha;
-              lineColors[lineVertexCount * 3 + 1] = colors[idx + 1] * alpha;
-              lineColors[lineVertexCount * 3 + 2] = colors[idx + 2] * alpha;
-
-              linePositions[(lineVertexCount + 1) * 3] = positionsArr[jdx];
-              linePositions[(lineVertexCount + 1) * 3 + 1] = positionsArr[jdx + 1];
-              linePositions[(lineVertexCount + 1) * 3 + 2] = positionsArr[jdx + 2];
-
-              lineColors[(lineVertexCount + 1) * 3] = colors[jdx] * alpha;
-              lineColors[(lineVertexCount + 1) * 3 + 1] = colors[jdx + 1] * alpha;
-              lineColors[(lineVertexCount + 1) * 3 + 2] = colors[jdx + 2] * alpha;
-
-              lineVertexCount += 2;
-            }
-          }
-        }
-
-        posAttr.needsUpdate = true;
-
-        linesGeometry.setDrawRange(0, lineVertexCount);
-        (linesGeometry.getAttribute("position") as THREE.BufferAttribute).needsUpdate = true;
-        (linesGeometry.getAttribute("color") as THREE.BufferAttribute).needsUpdate = true;
-
-        // Subtle camera float
-        camera.position.x = currentMouseX * 2.5;
-        camera.position.y = -currentMouseY * 2;
+        // Camera float
+        camera.position.x = currentMouseX * 2;
+        camera.position.y = -currentMouseY * 1.8;
         camera.lookAt(0, 0, -25);
       }
 
@@ -296,15 +332,16 @@ export const ThreeBackground = () => {
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
 
-      particleGeometry.dispose();
-      particleMaterial.dispose();
-      particleTexture.dispose();
-      linesGeometry.dispose();
-      lineMaterial.dispose();
-      ring1Geo.dispose();
-      ring1Mat.dispose();
-      ring2Geo.dispose();
-      ring2Mat.dispose();
+      iconSprites.forEach((item) => {
+        item.sprite.material.map?.dispose();
+        item.sprite.material.dispose();
+      });
+
+      starGeometry.dispose();
+      starMaterial.dispose();
+      starTexture.dispose();
+      ringGeo.dispose();
+      ringMat.dispose();
       renderer.dispose();
 
       if (container.contains(renderer.domElement)) {
