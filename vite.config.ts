@@ -188,6 +188,9 @@ export default defineConfig(({ mode }) => {
       hmr: {
         overlay: false,
       },
+      watch: {
+        ignored: ["**/*.pdf", "**/.git/**"],
+      },
     },
     plugins: [
       react(),

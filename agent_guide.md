@@ -168,6 +168,17 @@ export interface ExperienceItem {
   isCurrent?: boolean;
 }
 export const experience: ExperienceItem[]
+ 
+// Technical Blog articles
+export interface BlogPost {
+  title: string;
+  excerpt: string;
+  date: string;
+  readTime: string;
+  category: string;
+  tags: string[];
+}
+export const blogPosts: BlogPost[]
 ```
 
 ---

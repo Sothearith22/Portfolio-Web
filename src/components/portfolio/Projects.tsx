@@ -4,6 +4,7 @@ import { Section } from "./Section";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/data/portfolio";
+import { TiltCard } from "./TiltCard";
 
 type CategoryFilter = "All" | "Full-Stack" | "Frontend" | "ERP";
 
@@ -42,8 +43,8 @@ export const Projects = () => {
       description="Production systems, enterprise ERP modules, and modern full-stack web applications."
     >
       {/* Category Filter Tabs */}
-      <div className="mb-12 flex flex-col items-center gap-4">
-        <div className="inline-flex p-1.5 rounded-2xl border border-border/80 bg-secondary/50 backdrop-blur-md shadow-sm">
+      <div className="mb-8 sm:mb-12 flex justify-center w-full">
+        <div className="inline-flex max-w-full overflow-x-auto no-scrollbar p-1 sm:p-1.5 rounded-2xl border border-border/80 bg-secondary/50 backdrop-blur-md shadow-sm">
           {categories.map((cat) => {
             const isActive = selectedCategory === cat.label;
             const Icon = cat.icon;
@@ -51,7 +52,7 @@ export const Projects = () => {
               <button
                 key={cat.label}
                 onClick={() => setSelectedCategory(cat.label)}
-                className={`relative inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 ${
+                className={`relative inline-flex items-center gap-1.5 sm:gap-2 whitespace-nowrap rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-all duration-200 ${
                   isActive
                     ? "bg-background text-foreground shadow-sm font-semibold"
                     : "text-muted-foreground hover:text-foreground hover:bg-background/40"
@@ -82,17 +83,17 @@ export const Projects = () => {
             project.status?.toLowerCase().includes("progress");
 
           return (
-            <Card
-              key={project.title}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card/90 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-elegant"
-            >
+            <TiltCard key={project.title} className="h-full rounded-2xl">
+              <Card
+                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card/90 shadow-card transition-all duration-300 hover:border-primary/50 hover:shadow-2xl"
+              >
               {/* Image Preview Container */}
               {project.image ? (
                 <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-border/60 bg-muted/40">
                   <img
                     src={project.image}
                     alt={`Screenshot of ${project.title}`}
-                    className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-108"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-50 group-hover:opacity-30 transition-opacity" />
@@ -102,7 +103,7 @@ export const Projects = () => {
                     {/* Status Badge */}
                     {project.status ? (
                       <span
-                        className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-mono font-medium shadow-sm backdrop-blur-md pointer-events-auto ${
+                        className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-mono font-medium shadow-sm backdrop-blur-md pointer-events-auto transition-transform duration-200 group-hover:scale-105 ${
                           isCurrentOrActive
                             ? "border border-primary/40 bg-background/90 text-primary"
                             : "border border-emerald-500/30 bg-background/90 text-emerald-600 dark:text-emerald-400"
@@ -120,7 +121,8 @@ export const Projects = () => {
                     )}
 
                     {/* Category Tag */}
-                    <span className="rounded-full border border-border/80 bg-background/90 px-3 py-1 text-[11px] font-mono font-semibold text-foreground/90 shadow-sm backdrop-blur-md pointer-events-auto">
+                    <span className="inline-flex items-center gap-1 rounded-full border border-border/80 bg-background/90 px-3 py-1 text-[11px] font-mono font-semibold text-foreground/90 shadow-sm backdrop-blur-md pointer-events-auto transition-transform duration-200 group-hover:scale-105">
+                      <Sparkles className="h-3 w-3 text-primary animate-pulse" />
                       {project.category}
                     </span>
                   </div>
@@ -145,7 +147,7 @@ export const Projects = () => {
               )}
 
               {/* Card Body */}
-              <div className="flex flex-1 flex-col p-6 sm:p-7 justify-between">
+              <div className="flex flex-1 flex-col p-5 sm:p-7 justify-between">
                 <div>
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="text-xl font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
@@ -166,7 +168,7 @@ export const Projects = () => {
                       {project.stack.map((tech) => (
                         <li
                           key={tech}
-                          className="rounded-md border border-border/60 bg-secondary/50 px-2.5 py-1 font-mono text-xs text-foreground/80 transition-colors group-hover:border-primary/25"
+                          className="rounded-md border border-border/60 bg-secondary/50 px-2.5 py-1 font-mono text-xs text-foreground/80 transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/10 hover:text-primary cursor-default"
                         >
                           {tech}
                         </li>
@@ -177,21 +179,21 @@ export const Projects = () => {
                   {/* Actions / Links */}
                   <div className="flex flex-wrap items-center gap-2.5 pt-4 border-t border-border/50">
                     {project.github && !project.githubFrontend && (
-                      <Button size="sm" variant="outline" asChild className="hover:border-primary/40 transition-smooth">
+                      <Button size="sm" variant="outline" asChild className="hover:border-primary/50 hover:text-primary transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs">
                         <a
                           href={project.github}
                           target="_blank"
                           rel="noreferrer"
                           aria-label={`${project.title} on GitHub`}
                         >
-                          <Github className="mr-1.5 h-3.5 w-3.5" /> Source Code
+                          <Github className="mr-1.5 h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-6" /> Source Code
                         </a>
                       </Button>
                     )}
 
                     {project.github && project.githubFrontend && (
                       <div className="flex flex-wrap gap-2">
-                        <Button size="sm" variant="outline" asChild className="hover:border-primary/40 transition-smooth">
+                        <Button size="sm" variant="outline" asChild className="hover:border-primary/50 hover:text-primary transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs">
                           <a
                             href={project.github}
                             target="_blank"
@@ -201,7 +203,7 @@ export const Projects = () => {
                             <Github className="mr-1.5 h-3.5 w-3.5" /> Backend
                           </a>
                         </Button>
-                        <Button size="sm" variant="outline" asChild className="hover:border-primary/40 transition-smooth">
+                        <Button size="sm" variant="outline" asChild className="hover:border-primary/50 hover:text-primary transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs">
                           <a
                             href={project.githubFrontend}
                             target="_blank"
@@ -215,7 +217,7 @@ export const Projects = () => {
                     )}
 
                     {project.demo && (
-                      <Button size="sm" asChild className="shadow-sm transition-smooth hover:scale-[1.02]">
+                      <Button size="sm" asChild className="shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md active:scale-95">
                         <a
                           href={project.demo}
                           target="_blank"
@@ -229,15 +231,16 @@ export const Projects = () => {
 
                     {!project.github && !project.demo && (
                       <span className="text-xs font-mono text-muted-foreground inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary/50 border border-border/50">
-                        <Sparkles className="h-3 w-3 text-primary" /> Enterprise System
+                        <Sparkles className="h-3 w-3 text-primary animate-pulse" /> Enterprise System
                       </span>
                     )}
                   </div>
                 </div>
               </div>
             </Card>
-          );
-        })}
+          </TiltCard>
+        );
+      })}
       </div>
     </Section>
   );

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-const SECTION_PATHS = new Set(["/about", "/skills", "/projects", "/experience", "/contact"]);
+const SECTION_PATHS = new Set(["/about", "/projects", "/skills", "/experience", "/blog", "/contact"]);
 
 export const ScrollToHash = () => {
   const { hash, pathname } = useLocation();

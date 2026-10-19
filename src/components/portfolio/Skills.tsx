@@ -55,20 +55,20 @@ export const Skills = () => {
           return (
             <Card
               key={group.category}
-              className="group relative flex flex-col justify-between overflow-hidden border-border/80 bg-card/90 p-6 shadow-card transition-smooth hover:-translate-y-1 hover:border-primary/50 hover:shadow-elegant"
+              className="group relative flex flex-col justify-between overflow-hidden border-border/80 bg-card/90 p-5 sm:p-6 shadow-card transition-all duration-300 hover:-translate-y-2 hover:border-primary/50 hover:shadow-elegant"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary transition-smooth group-hover:scale-105 group-hover:bg-primary/20">
+                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-primary/20 shadow-sm">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <span className="rounded-full border border-border/80 bg-secondary/80 px-2.5 py-0.5 text-[11px] font-mono text-foreground/80">
+                  <span className="rounded-full border border-border/80 bg-secondary/80 px-2.5 py-0.5 text-[11px] font-mono text-foreground/80 transition-colors group-hover:border-primary/40 group-hover:text-primary">
                     {meta.badge}
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="font-mono text-lg font-bold text-foreground">
+                  <h3 className="font-mono text-lg font-bold text-foreground transition-colors group-hover:text-primary">
                     {group.category}
                   </h3>
                   <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
@@ -80,7 +80,7 @@ export const Skills = () => {
                   {group.items.map((item) => (
                     <li
                       key={item}
-                      className="rounded-lg border border-border/80 bg-secondary/60 px-3 py-1.5 text-xs font-mono text-foreground/90 transition-smooth hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
+                      className="rounded-lg border border-border/80 bg-secondary/60 px-3 py-1.5 text-xs font-mono text-foreground/90 transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/15 hover:text-primary hover:shadow-sm cursor-default"
                     >
                       {item}
                     </li>
@@ -99,18 +99,21 @@ export const Skills = () => {
       </div>
 
       {/* Soft Skills & Working Principles */}
-      <div className="mt-8 rounded-2xl border border-border/80 bg-secondary/40 p-6 backdrop-blur">
+      <div className="mt-8 rounded-2xl border border-border/80 bg-secondary/40 p-4 xs:p-6 backdrop-blur shadow-sm transition-all duration-300 hover:border-primary/40">
         <div className="mb-4 flex items-center gap-2">
-          <HeartHandshake className="h-4 w-4 text-primary" />
+          <HeartHandshake className="h-4 w-4 text-primary animate-pulse" />
           <h4 className="text-sm font-semibold text-foreground">
             Soft Skills & Collaboration Strengths
           </h4>
         </div>
         <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
           {softSkills.map((item) => (
-            <div key={item} className="flex items-center gap-2.5 text-xs font-medium text-foreground/90">
-              <CheckCircle2 className="h-3.5 w-3.5 flex-shrink-0 text-primary" />
-              <span>{item}</span>
+            <div
+              key={item}
+              className="group/item flex items-center gap-2.5 text-xs font-medium text-foreground/90 transition-transform duration-200 hover:translate-x-1.5 cursor-default"
+            >
+              <CheckCircle2 className="h-3.5 w-3.5 flex-shrink-0 text-primary transition-transform duration-200 group-hover/item:scale-125" />
+              <span className="transition-colors group-hover/item:text-primary">{item}</span>
             </div>
           ))}
         </div>

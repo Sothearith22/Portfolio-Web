@@ -8,21 +8,21 @@ import odooUniversityImage from "@/assets/odoo_university.png";
 
 export const profile = {
   name: "Kim Sothearith",
-  title: "Odoo Developer | Full-Stack Web Developer",
+  title: "Full-Stack Web Developer",
   position: "ODOO DEVELOPER INTERN",
   phone: "0968435574",
   email: env.contactEmail || "kimsothearith2007@gmail.com",
   location: "Phnom Penh, Cambodia",
   website: "https://portfolio-chi-sandy-61.vercel.app",
-  tagline: "Odoo Developer Intern at RMA Cambodia with hands-on experience in Spring Boot, Laravel, React.js, and relational databases.",
+  tagline: "Web Developer Intern at RMA Cambodia with hands-on experience in Spring Boot, Laravel, React.js, and relational databases.",
   roles: [
-    "Odoo Developer Intern @ RMA Cambodia",
+    "Web Developer Intern @ RMA Cambodia",
     "Backend Developer (Spring Boot & Laravel)",
-    "Full-Stack Developer (React & TypeScript)",
+    "Full-Stack Developer (React Ts & Spring Boot Laravel)",
     "IT Student @ RUPP",
   ],
   intro:
-    "Information Technology student at the Royal University of Phnom Penh and Odoo Developer Intern at RMA Cambodia. Experienced in Odoo ERP module development, backend engineering with Java/Spring Boot and PHP/Laravel, and modern frontend development with React, TypeScript, and Tailwind CSS. Passionate about building robust REST APIs, secure authentication systems, and scalable web solutions.",
+    "Information Technology student at the Royal University of Phnom Penh and Web Developer Intern at RMA Cambodia. Experienced in Odoo ERP module development, backend engineering with Java/Spring Boot and PHP/Laravel, and modern frontend development with React, TypeScript, and Tailwind CSS. Passionate about building robust REST APIs, secure authentication systems, and scalable web solutions.",
   resume: env.resume,
   socials: {
     github: env.githubUrl || "https://github.com/Sothearith22",
@@ -31,8 +31,8 @@ export const profile = {
 
 export const about = {
   bio: [
-    "I am an Information Technology student at the Royal University of Phnom Penh and an Odoo Developer Intern at RMA Cambodia. My technical foundation spans ERP development, backend engineering, and modern full-stack web applications.",
-    "At RMA Cambodia, I work on Odoo ERP module development and the University Management System. Previously, during my Backend Developer Internship at KRU IT Solution, I developed authentication, authorization, and CRUD REST APIs with MySQL/PostgreSQL for a School Management System.",
+    "I am an Information Technology student at the Royal University of Phnom Penh and an Web Developer Intern at RMA Cambodia. My technical foundation spans ERP development, backend engineering, and modern full-stack web applications.",
+    "At RMA Cambodia, I work on Odoo ERP module development and the University Management System. Previously, during my Web Developer Internship at KRU IT Solution, I developed authentication, authorization, and CRUD REST APIs with MySQL/PostgreSQL for a School Management System.",
     "I also completed an intensive Spring Boot course at ETEC Center, where I led the full-stack architecture of Cinematique—a cinema booking platform featuring Spring Boot 3, Spring Security JWT with rate limiting, Bakong KHQR payments, Cloudinary media management, and Docker CI/CD.",
   ],
   coreFocus:
@@ -117,7 +117,7 @@ export const education: EducationItem[] = [
 ];
 
 export const achievements = [
-  "Odoo Developer Intern at RMA Cambodia working on University Management System.",
+  "Web Developer Intern at RMA Cambodia working on University Management System.",
   "Completed Spring Boot Course and earned Certificate at ETEC Center.",
   "Completed Backend Development Internship at KRU IT Solution.",
   "Earned Full Stack Web Development Certificate.",
@@ -176,7 +176,7 @@ export const projects: Project[] = [
     status: "Active / In Progress @ RMA Cambodia",
   },
   {
-    title: "Room Booking Management System",
+    title: "Hotel Management System",
     image: BookingImage,
     description:
       "A full-stack room booking management system for handling room reservations and user management. Features responsive user interfaces integrated with backend services, authentication, database design, and API validation.",
@@ -228,13 +228,13 @@ export interface ExperienceItem {
 
 export const experience: ExperienceItem[] = [
   {
-    role: "Odoo Developer Intern",
+    role: "Web Developer Intern",
     company: "RMA Cambodia",
     project: "University Management System",
     period: "26 August 2026 — Present",
     isCurrent: true,
     description:
-      "Working as an Odoo Developer Intern at RMA Cambodia, focusing on ERP development, customization, and business logic implementation for the University Management System.",
+      "Working as an Web Developer Intern at RMA Cambodia, focusing on ERP development, customization, and business logic implementation for the University Management System.",
     highlights: [
       "Developing and customizing Odoo modules for the University Management System.",
       "Working with Odoo's Python backend, XML architecture, and PostgreSQL database.",
@@ -254,8 +254,46 @@ export const experience: ExperienceItem[] = [
       "Developed authentication, authorization, and CRUD APIs.",
       "Practiced Git/GitHub workflow and team collaboration.",
       "Improved API validation, error handling, and secure authentication.",
-      "Collaborated with the team on database design and API development.",
     ],
-    technologies: ["PHP", "Laravel", "PostgreSQL", "REST APIs", "Git" , "GitHub", "Postman"],
+    technologies: ["PHP", "Laravel", "PostgreSQL", "REST APIs", "Git", "GitHub", "Postman"],
+  },
+];
+
+export interface BlogPost {
+  title: string;
+  excerpt: string;
+  date: string;
+  readTime: string;
+  category: string;
+  tags: string[];
+}
+
+export const blogPosts: BlogPost[] = [
+  {
+    title: "Building Custom Modules & Relational Models in Odoo 19",
+    excerpt:
+      "A hands-on guide to structuring custom Odoo ERP modules, defining PostgreSQL models, creating XML tree and form views, and implementing business logic.",
+    date: "October 2026",
+    readTime: "5 min read",
+    category: "ERP & Odoo",
+    tags: ["Odoo", "Python", "PostgreSQL", "XML"],
+  },
+  {
+    title: "Securing Spring Boot 3 REST APIs with JWT & Rate Limiting",
+    excerpt:
+      "Deep dive into implementing stateless Spring Security 6 authentication with JWT tokens and bucket-based rate limiting to protect endpoints against brute-force attacks.",
+    date: "September 2026",
+    readTime: "7 min read",
+    category: "Backend Engineering",
+    tags: ["Spring Boot", "Java", "Security", "REST API"],
+  },
+  {
+    title: "Integrating Bakong KHQR Payments in Modern Web Applications",
+    excerpt:
+      "How to implement Cambodia's national standard Bakong KHQR payment workflows with real-time QR generation and webhook verification in full-stack web applications.",
+    date: "August 2026",
+    readTime: "6 min read",
+    category: "Full-Stack",
+    tags: ["Fintech", "Bakong KHQR", "TypeScript", "React"],
   },
 ];

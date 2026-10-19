@@ -141,14 +141,14 @@ export const Contact = () => {
   return (
     <Section
       id="contact"
-      eyebrow="05 — Contact"
+      eyebrow="06 — Contact"
       title="Let's Build Together"
       description="Whether you have an open role, a project in mind, or just want to connect, feel free to reach out."
     >
       <div className="mx-auto max-w-5xl grid gap-8 lg:grid-cols-[1fr_1.3fr] items-start">
         {/* Contact Info Sidebar */}
         <div className="space-y-4">
-          <Card className="border-border/70 bg-card/90 p-6 shadow-card transition-smooth hover:border-primary/30">
+          <Card className="border-border/70 bg-card/90 p-5 sm:p-6 shadow-card transition-all duration-300 hover:border-primary/40 hover:shadow-elegant">
             <h3 className="text-lg font-bold tracking-tight text-foreground">
               Contact Information
             </h3>
@@ -158,20 +158,20 @@ export const Contact = () => {
 
             <div className="mt-6 space-y-4">
               {/* Email */}
-              <div className="rounded-xl border border-border/70 bg-secondary/50 p-3.5">
+              <div className="group/item rounded-xl border border-border/70 bg-secondary/50 p-3.5 transition-all duration-200 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-xs">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5 text-xs font-mono uppercase tracking-wider text-primary">
-                    <Mail className="h-4 w-4" />
+                    <Mail className="h-4 w-4 transition-transform duration-200 group-hover/item:scale-110" />
                     Email
                   </div>
                   <button
                     onClick={copyEmail}
-                    className="inline-flex items-center gap-1 text-[11px] font-mono text-muted-foreground hover:text-foreground transition-colors"
+                    className="inline-flex items-center gap-1 text-[11px] font-mono text-muted-foreground hover:text-foreground transition-all duration-200 hover:scale-105 active:scale-95"
                     title="Copy email"
                   >
                     {copied ? (
                       <>
-                        <Check className="h-3 w-3 text-primary" /> Copied
+                        <Check className="h-3 w-3 text-primary animate-scale-in" /> Copied
                       </>
                     ) : (
                       <>
@@ -189,9 +189,9 @@ export const Contact = () => {
               </div>
 
               {/* GitHub */}
-              <div className="rounded-xl border border-border/70 bg-secondary/50 p-3.5">
+              <div className="group/item rounded-xl border border-border/70 bg-secondary/50 p-3.5 transition-all duration-200 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-xs">
                 <div className="flex items-center gap-2.5 text-xs font-mono uppercase tracking-wider text-primary">
-                  <Github className="h-4 w-4" />
+                  <Github className="h-4 w-4 transition-transform duration-200 group-hover/item:scale-110" />
                   GitHub Profile
                 </div>
                 <a
@@ -206,9 +206,9 @@ export const Contact = () => {
 
               {/* Phone */}
               {profile.phone && (
-                <div className="rounded-xl border border-border/70 bg-secondary/50 p-3.5">
+                <div className="group/item rounded-xl border border-border/70 bg-secondary/50 p-3.5 transition-all duration-200 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-xs">
                   <div className="flex items-center gap-2.5 text-xs font-mono uppercase tracking-wider text-primary">
-                    <Phone className="h-4 w-4" />
+                    <Phone className="h-4 w-4 transition-transform duration-200 group-hover/item:scale-110" />
                     Phone
                   </div>
                   <a
@@ -221,9 +221,9 @@ export const Contact = () => {
               )}
 
               {/* Location */}
-              <div className="rounded-xl border border-border/70 bg-secondary/50 p-3.5">
+              <div className="group/item rounded-xl border border-border/70 bg-secondary/50 p-3.5 transition-all duration-200 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-xs">
                 <div className="flex items-center gap-2.5 text-xs font-mono uppercase tracking-wider text-primary">
-                  <MapPin className="h-4 w-4" />
+                  <MapPin className="h-4 w-4 transition-transform duration-200 group-hover/item:scale-110" />
                   Location
                 </div>
                 <p className="mt-2 text-sm font-medium text-foreground">
@@ -240,7 +240,7 @@ export const Contact = () => {
               Current Status
             </div>
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-              Actively seeking junior web developer or backend opportunities in Phnom Penh or remote.
+              Actively seeking Web developer or backend opportunities in Phnom Penh or remote.
             </p>
             <div className="mt-3 flex items-center gap-2 text-[11px] font-mono text-primary">
               <Clock className="h-3.5 w-3.5" />
@@ -250,7 +250,7 @@ export const Contact = () => {
         </div>
 
         {/* Contact Form */}
-        <Card className="border-border/70 bg-card/90 p-6 sm:p-8 shadow-card">
+        <Card className="border-border/70 bg-card/90 p-5 sm:p-8 shadow-card">
           <form onSubmit={handleSubmit} noValidate className="space-y-5">
             <div className="space-y-2">
               <Label htmlFor="name" className="text-sm font-medium">
@@ -275,7 +275,7 @@ export const Contact = () => {
               <Input
                 id="email"
                 type="email"
-                placeholder="e.g. sokha@example.com"
+                placeholder="e.g. sothearith@example.com"
                 value={values.email}
                 onChange={handleChange("email")}
                 className="transition-smooth focus-visible:ring-primary"
@@ -304,7 +304,7 @@ export const Contact = () => {
 
             <Button
               type="submit"
-              className="w-full shadow-elegant transition-smooth hover:scale-[1.01]"
+              className="group w-full shadow-elegant transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
               disabled={submitting || cooldown > 0}
             >
               {submitting ? (
@@ -313,7 +313,8 @@ export const Contact = () => {
                 `Wait ${cooldown}s`
               ) : (
                 <>
-                  Send Message <Send className="ml-2 h-4 w-4" />
+                  Send Message{" "}
+                  <Send className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
                 </>
               )}
             </Button>
