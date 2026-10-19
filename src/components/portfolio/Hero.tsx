@@ -79,16 +79,6 @@ export const Hero = () => {
       <div className="absolute top-1/3 -right-20 h-[520px] w-[520px] rounded-full bg-primary-glow/15 blur-[160px] pointer-events-none -z-10" />
       <div className="absolute bottom-5 left-1/2 -translate-x-1/2 h-[380px] w-[700px] rounded-full bg-sky-500/10 blur-[150px] pointer-events-none -z-10" />
 
-      {/* Tiny subtle cosmic star dust particles */}
-      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-        <div className="absolute top-[18%] left-[12%] h-1 w-1 rounded-full bg-white/40 blur-[0.5px]" />
-        <div className="absolute top-[28%] left-[48%] h-1.5 w-1.5 rounded-full bg-sky-300/50 blur-[0.5px]" />
-        <div className="absolute top-[65%] left-[22%] h-1 w-1 rounded-full bg-pink-300/40 blur-[0.5px]" />
-        <div className="absolute top-[22%] right-[25%] h-1 w-1 rounded-full bg-purple-300/40 blur-[0.5px]" />
-        <div className="absolute top-[72%] right-[32%] h-1.5 w-1.5 rounded-full bg-white/40 blur-[0.5px]" />
-        <div className="absolute top-[45%] right-[15%] h-1 w-1 rounded-full bg-sky-200/50 blur-[0.5px]" />
-      </div>
-
       <div className="container relative z-10 grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
         {/* LEFT COLUMN: GREETING, BIG NAME, TYPING TITLE, BIO, TECH PILLS, CTAS, SOCIALS */}
         <div className="space-y-6 lg:col-span-7 animate-fade-in-up">
