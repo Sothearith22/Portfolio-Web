@@ -70,7 +70,7 @@ export const Hero = () => {
   };
 
   return (
-    <section id="top" className="relative min-h-[92vh] overflow-hidden py-16 sm:py-20 lg:py-24 flex items-center bg-background">
+    <section id="top" className="relative min-h-[92vh] overflow-hidden py-16 sm:py-20 lg:py-24 flex items-center bg-background scroll-mt-16">
       {/* 3D Interactive Three.js Particle & Geometric Wireframe Scene */}
       <ThreeBackground />
 

@@ -26,7 +26,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Header />
-      <main>
+      <main className="pt-16">
         <Hero />
         <About />
         <Skills />

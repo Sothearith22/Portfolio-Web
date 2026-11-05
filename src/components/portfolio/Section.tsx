@@ -14,7 +14,7 @@ export const Section = ({ id, eyebrow, title, description, children, className }
   const { ref, isInView } = useInView({ threshold: 0.08 });
 
   return (
-    <section id={id} ref={ref} className={`py-14 sm:py-20 md:py-28 ${className ?? ""}`}>
+    <section id={id} ref={ref} className={`scroll-mt-16 sm:scroll-mt-20 py-14 sm:py-20 md:py-28 ${className ?? ""}`}>
       <div className="container">
         <div className="mx-auto mb-8 sm:mb-12 max-w-2xl text-center">
           <p
