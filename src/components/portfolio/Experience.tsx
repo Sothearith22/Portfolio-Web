@@ -78,8 +78,8 @@ export const Experience = () => {
                     </p>
                     <ul className="space-y-1.5 pl-1">
                       {item.highlights.map((highlight) => (
-                        <li key={highlight} className="group/hi flex items-start gap-2 text-xs text-foreground/90 leading-relaxed transition-transform duration-200 hover:translate-x-1">
-                          <CheckCircle className="h-3.5 w-3.5 flex-shrink-0 text-primary mt-0.5 transition-transform duration-200 group-hover/hi:scale-125" />
+                        <li key={highlight} className="group/hi flex items-start gap-2 text-xs text-foreground/90 leading-relaxed transition-all duration-200 hover:translate-x-1.5 hover:text-foreground">
+                          <CheckCircle className="h-3.5 w-3.5 flex-shrink-0 text-primary mt-0.5 transition-transform duration-300 group-hover/hi:scale-130 group-hover/hi:rotate-12" />
                           <span>{highlight}</span>
                         </li>
                       ))}

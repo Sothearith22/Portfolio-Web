@@ -33,7 +33,7 @@ export const Footer = () => {
             <Link
               key={link.to}
               to={link.to}
-              className="text-xs text-muted-foreground hover:text-primary transition-colors duration-200"
+              className="text-xs text-muted-foreground hover:text-primary hover:-translate-y-0.5 transition-all duration-200"
             >
               {link.label}
             </Link>
@@ -47,25 +47,25 @@ export const Footer = () => {
             target="_blank"
             rel="noreferrer"
             aria-label="GitHub"
-            className="rounded-lg p-2 text-muted-foreground transition-all duration-200 hover:bg-secondary hover:text-primary hover:scale-110"
+            className="rounded-lg p-2 text-muted-foreground transition-all duration-300 hover:bg-secondary hover:text-primary hover:scale-120 hover:shadow-[0_0_12px_hsl(var(--primary)/0.4)]"
           >
-            <Github className="h-4 w-4" />
+            <Github className="h-4 w-4 transition-transform duration-300 hover:rotate-6" />
           </a>
           <a
             href={`mailto:${profile.email}`}
             aria-label="Email"
-            className="rounded-lg p-2 text-muted-foreground transition-all duration-200 hover:bg-secondary hover:text-primary hover:scale-110"
+            className="rounded-lg p-2 text-muted-foreground transition-all duration-300 hover:bg-secondary hover:text-primary hover:scale-120 hover:shadow-[0_0_12px_hsl(var(--primary)/0.4)]"
           >
-            <Mail className="h-4 w-4" />
+            <Mail className="h-4 w-4 transition-transform duration-300 hover:rotate-6" />
           </a>
 
           <button
             onClick={scrollToTop}
             aria-label="Scroll back to top"
-            className="group inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-secondary/60 px-3.5 py-1.5 text-xs font-mono text-muted-foreground hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs"
+            className="group inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-secondary/60 px-3.5 py-1.5 text-xs font-mono text-muted-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground hover:scale-110 hover:shadow-[0_0_18px_hsl(var(--primary)/0.4)] active:scale-95 transition-all duration-300 shadow-xs"
           >
             <span>Top</span>
-            <ArrowUp className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-1" />
+            <ArrowUp className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-1.5" />
           </button>
         </div>
       </div>

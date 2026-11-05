@@ -113,25 +113,25 @@ export const About = () => {
                 return (
                   <div
                     key={fact.label}
-                    className="group rounded-2xl border border-border/80 bg-secondary/60 p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-primary/50 hover:shadow-card cursor-default"
+                    className="group rounded-2xl border border-border/80 bg-secondary/60 p-4 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/60 hover:shadow-[0_0_20px_hsl(var(--primary)/0.2)] hover:bg-secondary/90 cursor-default"
                   >
                     <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-primary">
-                      <Icon className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
+                      <Icon className="h-4 w-4 transition-transform duration-300 group-hover:scale-125 group-hover:rotate-6" />
                       {fact.label}
                     </div>
-                    <p className="mt-2 text-sm font-semibold text-foreground">{fact.value}</p>
+                    <p className="mt-2 text-sm font-semibold text-foreground transition-colors group-hover:text-primary">{fact.value}</p>
                   </div>
                 );
               })}
             </div>
 
             {/* Philosophy Box */}
-            <div className="group rounded-2xl border border-primary/20 bg-primary/5 p-5 transition-all duration-300 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-sm">
+            <div className="group rounded-2xl border border-primary/20 bg-primary/5 p-5 transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-[0_0_25px_hsl(var(--primary)/0.15)]">
               <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                <ArrowUpRight className="h-4 w-4 text-primary transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="h-4 w-4 text-primary transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                 Engineering Philosophy & Core Focus
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground transition-colors group-hover:text-foreground/90">
                 {about.coreFocus}
               </p>
             </div>
@@ -147,23 +147,23 @@ export const About = () => {
                 return (
                   <Card
                     key={card.title}
-                    className="group border-border/80 bg-background/80 p-5 shadow-card transition-all duration-300 hover:-translate-y-2 hover:border-primary/50 hover:shadow-elegant animate-fade-in-up"
+                    className="group border-border/80 bg-background/80 p-5 shadow-card transition-all duration-300 hover:-translate-y-2.5 hover:border-primary/60 hover:shadow-[0_12px_30px_-8px_hsl(var(--primary)/0.3)] animate-fade-in-up"
                     style={{ animationDelay: `${index * 90}ms` }}
                   >
-                    <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-primary/20 shadow-xs">
+                    <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary transition-all duration-300 group-hover:scale-120 group-hover:rotate-12 group-hover:bg-primary/25 group-hover:shadow-[0_0_15px_hsl(var(--primary)/0.5)] shadow-xs">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <h4 className="mt-4 text-base font-semibold text-foreground transition-colors group-hover:text-primary">
+                    <h4 className="mt-4 text-base font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
                       {card.title}
                     </h4>
-                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{card.description}</p>
+                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground transition-colors duration-300 group-hover:text-foreground/80">{card.description}</p>
                   </Card>
                 );
               })}
             </div>
 
             {/* Education & Certifications from CV */}
-            <Card className="border-border/80 bg-gradient-to-br from-background to-secondary/30 p-6 shadow-card space-y-5 transition-all duration-300 hover:border-primary/40">
+            <Card className="border-border/80 bg-gradient-to-br from-background to-secondary/30 p-6 shadow-card space-y-5 transition-all duration-300 hover:border-primary/50 hover:shadow-elegant">
               <div className="flex items-center justify-between border-b border-border/50 pb-3">
                 <div className="flex items-center gap-2 text-sm font-bold text-foreground">
                   <GraduationCap className="h-4 w-4 text-primary animate-pulse" />

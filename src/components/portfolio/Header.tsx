@@ -180,11 +180,11 @@ export const Header = () => {
           to="/"
           onClick={handleLogoClick}
           aria-label="Kim Sothearith — Scroll to top"
-          className="group inline-flex items-center font-mono text-base font-bold tracking-tight transition-smooth hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md px-1 flex-shrink-0"
+          className="group inline-flex items-center font-mono text-base font-bold tracking-tight transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_12px_hsl(var(--primary)/0.6)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md px-1 flex-shrink-0"
         >
-          <span className="text-primary transition-colors group-hover:text-primary-glow">{"<"}</span>
-          <span className="text-foreground">Rith</span>
-          <span className="text-primary transition-colors group-hover:text-primary-glow">{"/>"}</span>
+          <span className="text-primary transition-all duration-300 group-hover:text-primary-glow group-hover:-translate-x-0.5">{"<"}</span>
+          <span className="text-foreground transition-colors group-hover:text-foreground">Rith</span>
+          <span className="text-primary transition-all duration-300 group-hover:text-primary-glow group-hover:translate-x-0.5">{"/>"}</span>
         </Link>
 
         {/* 2. Desktop Navigation: Home, About, Projects, Skills, Experience, Blog, Contact */}
@@ -201,10 +201,10 @@ export const Header = () => {
                 onClick={(e) => handleNavClick(e, item)}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "relative rounded-full px-2.5 lg:px-3 py-1.5 text-xs lg:text-sm font-medium transition-smooth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                  "relative rounded-full px-2.5 lg:px-3 py-1.5 text-xs lg:text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                   isActive
-                    ? "bg-primary/10 font-semibold text-primary shadow-xs"
-                    : "text-muted-foreground hover:bg-secondary/70 hover:text-foreground"
+                    ? "bg-primary/10 font-semibold text-primary shadow-xs ring-1 ring-primary/25"
+                    : "text-muted-foreground hover:bg-secondary/80 hover:text-foreground hover:-translate-y-0.5 active:translate-y-0"
                 )}
               >
                 {item.label}
@@ -225,7 +225,7 @@ export const Header = () => {
                   variant="ghost"
                   size="icon"
                   asChild
-                  className="h-8 w-8 rounded-full text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary"
+                  className="h-8 w-8 rounded-full text-muted-foreground hover:bg-secondary hover:text-primary hover:scale-110 hover:shadow-[0_0_12px_hsl(var(--primary)/0.3)] transition-all duration-200"
                 >
                   <a
                     href={social.href}
@@ -233,7 +233,7 @@ export const Header = () => {
                     rel="noopener noreferrer"
                     aria-label={social.ariaLabel}
                   >
-                    <Icon className="h-4 w-4" />
+                    <Icon className="h-4 w-4 transition-transform duration-200 hover:rotate-6" />
                   </a>
                 </Button>
               );
@@ -245,7 +245,7 @@ export const Header = () => {
             size="sm"
             variant="outline"
             asChild
-            className="h-8 gap-1.5 rounded-full border-primary/30 px-3 text-xs font-mono text-primary transition-smooth hover:bg-primary hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-primary"
+            className="h-8 gap-1.5 rounded-full border-primary/30 px-3 text-xs font-mono text-primary transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:scale-105 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] active:scale-95 focus-visible:ring-2 focus-visible:ring-primary"
           >
             <a
               href={NAV_CONFIG.resumeUrl}
@@ -253,7 +253,7 @@ export const Header = () => {
               rel="noopener noreferrer"
               aria-label="Open resume in new tab"
             >
-              <FileText className="h-3.5 w-3.5" /> Resume
+              <FileText className="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-6" /> Resume
             </a>
           </Button>
 
@@ -262,11 +262,11 @@ export const Header = () => {
             variant="ghost"
             size="icon"
             onClick={toggle}
-            className="h-8 w-8 rounded-full text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary"
+            className="h-8 w-8 rounded-full text-muted-foreground hover:bg-secondary hover:text-primary hover:rotate-45 hover:scale-110 active:scale-90 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary"
             aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
           >
             {theme === "dark" ? (
-              <Sun className="h-4 w-4 text-primary" />
+              <Sun className="h-4 w-4 text-primary animate-spin-slow" />
             ) : (
               <Moon className="h-4 w-4" />
             )}

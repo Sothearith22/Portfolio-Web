@@ -52,18 +52,18 @@ export const Projects = () => {
               <button
                 key={cat.label}
                 onClick={() => setSelectedCategory(cat.label)}
-                className={`relative inline-flex items-center gap-1.5 sm:gap-2 whitespace-nowrap rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-all duration-200 ${
+                className={`relative inline-flex items-center gap-1.5 sm:gap-2 whitespace-nowrap rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95 ${
                   isActive
-                    ? "bg-background text-foreground shadow-sm font-semibold"
-                    : "text-muted-foreground hover:text-foreground hover:bg-background/40"
+                    ? "bg-background text-foreground shadow-md font-semibold ring-1 ring-primary/25"
+                    : "text-muted-foreground hover:text-foreground hover:bg-background/60"
                 }`}
               >
-                <Icon className={`h-3.5 w-3.5 ${isActive ? "text-primary" : "text-muted-foreground"}`} />
+                <Icon className={`h-3.5 w-3.5 transition-transform duration-300 ${isActive ? "text-primary scale-110" : "text-muted-foreground group-hover:text-foreground"}`} />
                 <span>{cat.label}</span>
                 <span
-                  className={`rounded-full px-1.5 py-0.5 text-[10px] font-mono font-bold transition-colors ${
+                  className={`rounded-full px-1.5 py-0.5 text-[10px] font-mono font-bold transition-all duration-300 ${
                     isActive
-                      ? "bg-primary/10 text-primary"
+                      ? "bg-primary/15 text-primary scale-105"
                       : "bg-muted text-muted-foreground"
                   }`}
                 >
@@ -87,6 +87,8 @@ export const Projects = () => {
               <Card
                 className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card/90 shadow-card transition-all duration-300 hover:border-primary/50 hover:shadow-2xl"
               >
+                {/* Neon accent top border on hover */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center z-20" />
               {/* Image Preview Container */}
               {project.image ? (
                 <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-border/60 bg-muted/40">
@@ -168,7 +170,7 @@ export const Projects = () => {
                       {project.stack.map((tech) => (
                         <li
                           key={tech}
-                          className="rounded-md border border-border/60 bg-secondary/50 px-2.5 py-1 font-mono text-xs text-foreground/80 transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/10 hover:text-primary cursor-default"
+                          className="rounded-md border border-border/60 bg-secondary/50 px-2.5 py-1 font-mono text-xs text-foreground/80 transition-all duration-200 hover:scale-110 hover:-translate-y-0.5 hover:border-primary/60 hover:bg-primary/15 hover:text-primary hover:shadow-xs cursor-default"
                         >
                           {tech}
                         </li>
@@ -179,52 +181,52 @@ export const Projects = () => {
                   {/* Actions / Links */}
                   <div className="flex flex-wrap items-center gap-2.5 pt-4 border-t border-border/50">
                     {project.github && !project.githubFrontend && (
-                      <Button size="sm" variant="outline" asChild className="hover:border-primary/50 hover:text-primary transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs">
+                      <Button size="sm" variant="outline" asChild className="hover:border-primary hover:text-primary hover:shadow-[0_0_15px_hsl(var(--primary)/0.25)] transition-all duration-300 hover:scale-105 active:scale-95 shadow-xs">
                         <a
                           href={project.github}
                           target="_blank"
                           rel="noreferrer"
                           aria-label={`${project.title} on GitHub`}
                         >
-                          <Github className="mr-1.5 h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-6" /> Source Code
+                          <Github className="mr-1.5 h-3.5 w-3.5 transition-transform duration-300 group-hover:rotate-12" /> Source Code
                         </a>
                       </Button>
                     )}
 
                     {project.github && project.githubFrontend && (
                       <div className="flex flex-wrap gap-2">
-                        <Button size="sm" variant="outline" asChild className="hover:border-primary/50 hover:text-primary transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs">
+                        <Button size="sm" variant="outline" asChild className="hover:border-primary hover:text-primary hover:shadow-[0_0_15px_hsl(var(--primary)/0.25)] transition-all duration-300 hover:scale-105 active:scale-95 shadow-xs">
                           <a
                             href={project.github}
                             target="_blank"
                             rel="noreferrer"
                             aria-label={`${project.title} Backend on GitHub`}
                           >
-                            <Github className="mr-1.5 h-3.5 w-3.5" /> Backend
+                            <Github className="mr-1.5 h-3.5 w-3.5 transition-transform duration-300 group-hover:rotate-12" /> Backend
                           </a>
                         </Button>
-                        <Button size="sm" variant="outline" asChild className="hover:border-primary/50 hover:text-primary transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs">
+                        <Button size="sm" variant="outline" asChild className="hover:border-primary hover:text-primary hover:shadow-[0_0_15px_hsl(var(--primary)/0.25)] transition-all duration-300 hover:scale-105 active:scale-95 shadow-xs">
                           <a
                             href={project.githubFrontend}
                             target="_blank"
                             rel="noreferrer"
                             aria-label={`${project.title} Frontend on GitHub`}
                           >
-                            <Github className="mr-1.5 h-3.5 w-3.5" /> Frontend
+                            <Github className="mr-1.5 h-3.5 w-3.5 transition-transform duration-300 group-hover:rotate-12" /> Frontend
                           </a>
                         </Button>
                       </div>
                     )}
 
                     {project.demo && (
-                      <Button size="sm" asChild className="shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md active:scale-95">
+                      <Button size="sm" asChild className="shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_hsl(var(--primary)/0.4)] active:scale-95">
                         <a
                           href={project.demo}
                           target="_blank"
                           rel="noreferrer"
                           aria-label={`${project.title} Live Demo`}
                         >
-                          <ExternalLink className="mr-1.5 h-3.5 w-3.5" /> Live Demo
+                          <ExternalLink className="mr-1.5 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /> Live Demo
                         </a>
                       </Button>
                     )}

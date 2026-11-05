@@ -133,11 +133,11 @@ export const Hero = () => {
             <Button
               size="lg"
               asChild
-              className="group w-full xs:w-auto justify-center rounded-xl px-7 py-3.5 bg-gradient-to-r from-sky-500 via-primary to-indigo-600 hover:from-sky-400 hover:via-primary-glow hover:to-indigo-500 text-white font-semibold shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-300 hover:scale-105 border-0"
+              className="group w-full xs:w-auto justify-center rounded-xl px-7 py-3.5 bg-gradient-to-r from-sky-500 via-primary to-indigo-600 hover:from-sky-400 hover:via-primary-glow hover:to-indigo-500 text-white font-semibold shadow-lg shadow-primary/25 hover:shadow-primary/50 hover:shadow-[0_0_25px_hsl(var(--primary)/0.4)] transition-all duration-300 hover:scale-105 active:scale-95 border-0"
             >
               <a href="#projects" onClick={(e) => handleSmoothScroll(e, "projects")}>
                 View My Work{" "}
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
               </a>
             </Button>
 
@@ -145,10 +145,10 @@ export const Hero = () => {
               size="lg"
               variant="outline"
               asChild
-              className="w-full xs:w-auto justify-center rounded-xl px-7 py-3.5 border border-border/80 bg-secondary/50 hover:bg-secondary hover:border-primary/50 text-foreground hover:text-primary font-semibold backdrop-blur-md shadow-sm transition-all duration-300 hover:scale-105"
+              className="group w-full xs:w-auto justify-center rounded-xl px-7 py-3.5 border border-border/80 bg-secondary/50 hover:bg-secondary hover:border-primary/60 text-foreground hover:text-primary font-semibold backdrop-blur-md shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_hsl(var(--primary)/0.25)] active:scale-95"
             >
               <a href="#contact" onClick={(e) => handleSmoothScroll(e, "contact")}>
-                Let's Talk <MessageCircle className="ml-2 h-4 w-4 text-primary transition-colors" />
+                Let's Talk <MessageCircle className="ml-2 h-4 w-4 text-primary transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12" />
               </a>
             </Button>
           </div>
@@ -164,25 +164,25 @@ export const Hero = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub profile"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-border/70 bg-secondary/50 text-muted-foreground transition-all duration-200 hover:border-primary hover:text-primary hover:bg-secondary hover:scale-110"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-border/70 bg-secondary/50 text-muted-foreground transition-all duration-300 hover:border-primary hover:text-primary hover:bg-secondary hover:scale-115 hover:-translate-y-0.5 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)]"
               >
-                <Github className="h-4 w-4" />
+                <Github className="h-4 w-4 transition-transform duration-200 hover:rotate-6" />
               </a>
               <a
                 href="https://linkedin.com/in/sothearith-kim"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn profile"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-border/70 bg-secondary/50 text-muted-foreground transition-all duration-200 hover:border-primary hover:text-primary hover:bg-secondary hover:scale-110"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-border/70 bg-secondary/50 text-muted-foreground transition-all duration-300 hover:border-primary hover:text-primary hover:bg-secondary hover:scale-115 hover:-translate-y-0.5 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)]"
               >
-                <Linkedin className="h-4 w-4" />
+                <Linkedin className="h-4 w-4 transition-transform duration-200 hover:rotate-6" />
               </a>
               <a
                 href={`mailto:${profile.email}`}
                 aria-label="Send email"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-border/70 bg-secondary/50 text-muted-foreground transition-all duration-200 hover:border-primary hover:text-primary hover:bg-secondary hover:scale-110"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-border/70 bg-secondary/50 text-muted-foreground transition-all duration-300 hover:border-primary hover:text-primary hover:bg-secondary hover:scale-115 hover:-translate-y-0.5 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)]"
               >
-                <Mail className="h-4 w-4" />
+                <Mail className="h-4 w-4 transition-transform duration-200 hover:rotate-6" />
               </a>
             </div>
           </div>
@@ -194,12 +194,12 @@ export const Hero = () => {
           <div className="absolute h-[280px] w-[280px] xs:h-[340px] xs:w-[340px] sm:h-[400px] sm:w-[400px] rounded-full bg-gradient-to-tr from-sky-500/20 via-purple-600/25 to-pink-500/20 blur-[60px] pointer-events-none" />
 
           {/* Floating Glass Code Card (Positioned high and to the right so face is 100% visible) */}
-          <div className="absolute -top-8 -right-1 xs:-top-10 xs:-right-2 sm:-top-14 sm:-right-6 lg:-top-16 lg:-right-8 z-30 w-44 xs:w-52 sm:w-56 rounded-2xl border border-slate-700/60 bg-[#0d131f]/95 p-2.5 xs:p-3 shadow-2xl backdrop-blur-xl animate-float font-mono text-[9.5px] xs:text-[10px] sm:text-[11px]">
+          <div className="absolute -top-8 -right-1 xs:-top-10 xs:-right-2 sm:-top-14 sm:-right-6 lg:-top-16 lg:-right-8 z-30 w-44 xs:w-52 sm:w-56 rounded-2xl border border-slate-700/60 bg-[#0d131f]/95 p-2.5 xs:p-3 shadow-2xl backdrop-blur-xl animate-float font-mono text-[9.5px] xs:text-[10px] sm:text-[11px] transition-all duration-300 hover:scale-105 hover:border-cyan-400/60 hover:shadow-[0_0_30px_rgba(56,189,248,0.35)] cursor-default">
             {/* macOS traffic light controls */}
             <div className="flex items-center gap-1.5 pb-1.5 xs:pb-2 mb-1.5 xs:mb-2 border-b border-slate-800/80">
-              <span className="h-2 w-2 rounded-full bg-rose-500" />
-              <span className="h-2 w-2 rounded-full bg-amber-500" />
-              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+              <span className="h-2 w-2 rounded-full bg-rose-500 transition-transform duration-200 hover:scale-125" />
+              <span className="h-2 w-2 rounded-full bg-amber-500 transition-transform duration-200 hover:scale-125" />
+              <span className="h-2 w-2 rounded-full bg-emerald-500 transition-transform duration-200 hover:scale-125" />
               <span className="ml-1.5 text-[8.5px] xs:text-[9px] sm:text-[10px] text-slate-400 font-mono">developer.ts</span>
             </div>
             <div className="space-y-0.5 font-mono text-slate-300 leading-snug">
@@ -227,12 +227,12 @@ export const Hero = () => {
           </div>
 
           {/* Central Portrait with Glowing Gradient Ring (Face completely visible) */}
-          <div className="relative p-[3px] sm:p-[3.5px] rounded-full bg-gradient-to-tr from-cyan-400 via-purple-500 to-pink-500 shadow-[0_0_50px_rgba(168,85,247,0.35)] transition-transform duration-500 hover:scale-[1.02]">
+          <div className="relative p-[3px] sm:p-[3.5px] rounded-full bg-gradient-to-tr from-cyan-400 via-purple-500 to-pink-500 shadow-[0_0_50px_rgba(168,85,247,0.35)] transition-all duration-500 hover:scale-[1.04] hover:shadow-[0_0_65px_rgba(168,85,247,0.55)] cursor-pointer">
             <div className="h-56 w-56 xs:h-64 xs:w-64 sm:h-80 sm:w-80 md:h-84 md:w-84 lg:h-88 lg:w-88 rounded-full overflow-hidden bg-slate-950 p-1">
               <img
                 src={profileImage}
                 alt={`Portrait of ${profile.name}`}
-                className="h-full w-full rounded-full object-cover object-top"
+                className="h-full w-full rounded-full object-cover object-top transition-transform duration-700 hover:scale-105"
                 loading="eager"
               />
             </div>
@@ -240,7 +240,7 @@ export const Hero = () => {
             {/* Orbital Badge 1: Top-Left at ~10 o'clock (Emerald Green </>) */}
             <div
               title="Clean Code"
-              className="absolute top-8 -left-1 xs:top-10 xs:-left-2 sm:top-14 sm:-left-4 z-20 flex h-8 w-8 xs:h-9 xs:w-9 sm:h-11 sm:w-11 items-center justify-center rounded-2xl bg-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.5)] -rotate-12 transition-transform duration-200 hover:rotate-0 hover:scale-110"
+              className="absolute top-8 -left-1 xs:top-10 xs:-left-2 sm:top-14 sm:-left-4 z-20 flex h-8 w-8 xs:h-9 xs:w-9 sm:h-11 sm:w-11 items-center justify-center rounded-2xl bg-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.5)] -rotate-12 transition-all duration-300 hover:rotate-0 hover:scale-125 hover:shadow-[0_0_30px_rgba(16,185,129,0.85)] cursor-pointer"
             >
               <Code2 className="h-3.5 w-3.5 xs:h-4 xs:w-4 sm:h-5 sm:w-5" />
             </div>
@@ -248,7 +248,7 @@ export const Hero = () => {
             {/* Orbital Badge 2: Mid-Right at ~4 o'clock (Purple Stack/Layers - fully visible) */}
             <div
               title="Full-Stack & ERP Architecture"
-              className="absolute top-[56%] -right-1 xs:-right-2 sm:-right-4 -translate-y-1/2 z-20 flex h-8 w-8 xs:h-9 xs:w-9 sm:h-11 sm:w-11 items-center justify-center rounded-2xl bg-purple-500 text-white shadow-[0_0_20px_rgba(168,85,247,0.5)] rotate-12 transition-transform duration-200 hover:rotate-0 hover:scale-110"
+              className="absolute top-[56%] -right-1 xs:-right-2 sm:-right-4 -translate-y-1/2 z-20 flex h-8 w-8 xs:h-9 xs:w-9 sm:h-11 sm:w-11 items-center justify-center rounded-2xl bg-purple-500 text-white shadow-[0_0_20px_rgba(168,85,247,0.5)] rotate-12 transition-all duration-300 hover:rotate-0 hover:scale-125 hover:shadow-[0_0_30px_rgba(168,85,247,0.85)] cursor-pointer"
             >
               <Layers className="h-3.5 w-3.5 xs:h-4 xs:w-4 sm:h-5 sm:w-5" />
             </div>
@@ -256,14 +256,14 @@ export const Hero = () => {
             {/* Orbital Badge 3: Mid-Left at ~8 o'clock (Cyan Sparkles - fully visible above stat card) */}
             <div
               title="Modern Web UI"
-              className="absolute top-[56%] -left-1 xs:-left-2 sm:-left-4 -translate-y-1/2 z-20 flex h-8 w-8 xs:h-9 xs:w-9 sm:h-10 sm:w-10 items-center justify-center rounded-2xl bg-cyan-400 text-white shadow-[0_0_20px_rgba(34,211,238,0.5)] -rotate-12 transition-transform duration-200 hover:rotate-0 hover:scale-110"
+              className="absolute top-[56%] -left-1 xs:-left-2 sm:-left-4 -translate-y-1/2 z-20 flex h-8 w-8 xs:h-9 xs:w-9 sm:h-10 sm:w-10 items-center justify-center rounded-2xl bg-cyan-400 text-white shadow-[0_0_20px_rgba(34,211,238,0.5)] -rotate-12 transition-all duration-300 hover:rotate-0 hover:scale-125 hover:shadow-[0_0_30px_rgba(34,211,238,0.85)] cursor-pointer"
             >
               <Sparkles className="h-3.5 w-3.5 xs:h-4 xs:w-4 sm:h-4 sm:w-4" />
             </div>
           </div>
 
           {/* Floating Metric Card 1: Bottom-Left (6+ Projects) */}
-          <div className="absolute -bottom-2.5 left-0 xs:-bottom-3 xs:left-1 sm:-bottom-5 sm:left-2 z-20 rounded-xl xs:rounded-2xl border border-slate-800/90 bg-[#0d131f]/95 px-3 xs:px-4 sm:px-5 py-2 xs:py-2.5 sm:py-3 text-center shadow-2xl backdrop-blur-xl min-w-[92px] xs:min-w-[105px] sm:min-w-[120px]">
+          <div className="absolute -bottom-2.5 left-0 xs:-bottom-3 xs:left-1 sm:-bottom-5 sm:left-2 z-20 rounded-xl xs:rounded-2xl border border-slate-800/90 bg-[#0d131f]/95 px-3 xs:px-4 sm:px-5 py-2 xs:py-2.5 sm:py-3 text-center shadow-2xl backdrop-blur-xl min-w-[92px] xs:min-w-[105px] sm:min-w-[120px] transition-all duration-300 hover:scale-108 hover:border-cyan-400/50 hover:shadow-[0_0_25px_rgba(56,189,248,0.3)] cursor-default">
             <p className="font-mono text-xl xs:text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               6<span className="text-cyan-400 font-black">+</span>
             </p>
@@ -271,7 +271,7 @@ export const Hero = () => {
           </div>
 
           {/* Floating Metric Card 2: Bottom-Right (Year 3 IT @ RUPP) */}
-          <div className="absolute -bottom-2.5 right-0 xs:-bottom-3 xs:right-1 sm:-bottom-5 sm:right-2 z-20 rounded-xl xs:rounded-2xl border border-slate-800/90 bg-[#0d131f]/95 px-3 xs:px-4 sm:px-5 py-2 xs:py-2.5 sm:py-3 text-center shadow-2xl backdrop-blur-xl min-w-[92px] xs:min-w-[105px] sm:min-w-[120px]">
+          <div className="absolute -bottom-2.5 right-0 xs:-bottom-3 xs:right-1 sm:-bottom-5 sm:right-2 z-20 rounded-xl xs:rounded-2xl border border-slate-800/90 bg-[#0d131f]/95 px-3 xs:px-4 sm:px-5 py-2 xs:py-2.5 sm:py-3 text-center shadow-2xl backdrop-blur-xl min-w-[92px] xs:min-w-[105px] sm:min-w-[120px] transition-all duration-300 hover:scale-108 hover:border-pink-500/50 hover:shadow-[0_0_25px_rgba(236,72,153,0.3)] cursor-default">
             <p className="font-mono text-xl xs:text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               Year <span className="text-pink-500 font-black">3</span>
             </p>

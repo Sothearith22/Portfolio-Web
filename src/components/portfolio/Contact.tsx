@@ -158,10 +158,10 @@ export const Contact = () => {
 
             <div className="mt-6 space-y-4">
               {/* Email */}
-              <div className="group/item rounded-xl border border-border/70 bg-secondary/50 p-3.5 transition-all duration-200 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-xs">
+              <div className="group/item rounded-xl border border-border/70 bg-secondary/50 p-3.5 transition-all duration-300 hover:border-primary/60 hover:-translate-y-1 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] hover:bg-secondary/80">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5 text-xs font-mono uppercase tracking-wider text-primary">
-                    <Mail className="h-4 w-4 transition-transform duration-200 group-hover/item:scale-110" />
+                    <Mail className="h-4 w-4 transition-transform duration-300 group-hover/item:scale-125 group-hover/item:rotate-6" />
                     Email
                   </div>
                   <button
@@ -189,9 +189,9 @@ export const Contact = () => {
               </div>
 
               {/* GitHub */}
-              <div className="group/item rounded-xl border border-border/70 bg-secondary/50 p-3.5 transition-all duration-200 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-xs">
+              <div className="group/item rounded-xl border border-border/70 bg-secondary/50 p-3.5 transition-all duration-300 hover:border-primary/60 hover:-translate-y-1 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] hover:bg-secondary/80">
                 <div className="flex items-center gap-2.5 text-xs font-mono uppercase tracking-wider text-primary">
-                  <Github className="h-4 w-4 transition-transform duration-200 group-hover/item:scale-110" />
+                  <Github className="h-4 w-4 transition-transform duration-300 group-hover/item:scale-125 group-hover/item:rotate-12" />
                   GitHub Profile
                 </div>
                 <a
@@ -206,9 +206,9 @@ export const Contact = () => {
 
               {/* Phone */}
               {profile.phone && (
-                <div className="group/item rounded-xl border border-border/70 bg-secondary/50 p-3.5 transition-all duration-200 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-xs">
+                <div className="group/item rounded-xl border border-border/70 bg-secondary/50 p-3.5 transition-all duration-300 hover:border-primary/60 hover:-translate-y-1 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] hover:bg-secondary/80">
                   <div className="flex items-center gap-2.5 text-xs font-mono uppercase tracking-wider text-primary">
-                    <Phone className="h-4 w-4 transition-transform duration-200 group-hover/item:scale-110" />
+                    <Phone className="h-4 w-4 transition-transform duration-300 group-hover/item:scale-125 group-hover/item:rotate-12" />
                     Phone
                   </div>
                   <a
@@ -221,9 +221,9 @@ export const Contact = () => {
               )}
 
               {/* Location */}
-              <div className="group/item rounded-xl border border-border/70 bg-secondary/50 p-3.5 transition-all duration-200 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-xs">
+              <div className="group/item rounded-xl border border-border/70 bg-secondary/50 p-3.5 transition-all duration-300 hover:border-primary/60 hover:-translate-y-1 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] hover:bg-secondary/80">
                 <div className="flex items-center gap-2.5 text-xs font-mono uppercase tracking-wider text-primary">
-                  <MapPin className="h-4 w-4 transition-transform duration-200 group-hover/item:scale-110" />
+                  <MapPin className="h-4 w-4 transition-transform duration-300 group-hover/item:scale-125 group-hover/item:rotate-6" />
                   Location
                 </div>
                 <p className="mt-2 text-sm font-medium text-foreground">
@@ -304,7 +304,7 @@ export const Contact = () => {
 
             <Button
               type="submit"
-              className="group w-full shadow-elegant transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
+              className="group w-full shadow-elegant transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_hsl(var(--primary)/0.45)] active:scale-[0.98]"
               disabled={submitting || cooldown > 0}
             >
               {submitting ? (
@@ -314,7 +314,7 @@ export const Contact = () => {
               ) : (
                 <>
                   Send Message{" "}
-                  <Send className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
+                  <Send className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5 group-hover:-translate-y-1" />
                 </>
               )}
             </Button>
