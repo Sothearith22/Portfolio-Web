@@ -187,7 +187,7 @@ This repository is optimized for deployment on **[Vercel](https://vercel.com/)**
 
 **Kim Sothearith**
 - **GitHub**: [@Sothearith22](https://github.com/Sothearith22)
-- **Portfolio**: [portfolio-chi-sandy-61.vercel.app](https://portfolio-chi-sandy-61.vercel.app)
+- **Portfolio**: [portfolio-web-two-ashen.vercel.app](https://portfolio-web-two-ashen.vercel.app)
 - **Email**: [kimsothearith2007@gmail.com](mailto:kimsothearith2007@gmail.com)
 - **Location**: Phnom Penh, Cambodia
 
