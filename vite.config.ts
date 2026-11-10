@@ -199,7 +199,7 @@ export default defineConfig(({ mode }) => {
     ].filter(Boolean),
     resolve: {
       alias: {
-        "@": path.resolve(__dirname, "./src"),
+        "@": path.resolve(import.meta.dirname, "./src"),
       },
       dedupe: [
         "react",
@@ -209,6 +209,27 @@ export default defineConfig(({ mode }) => {
         "@tanstack/react-query",
         "@tanstack/query-core",
       ],
+    },
+    build: {
+      chunkSizeWarningLimit: 1000,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes("node_modules")) {
+              if (id.includes("three")) {
+                return "three";
+              }
+              if (id.includes("@radix-ui")) {
+                return "radix";
+              }
+              if (id.includes("lucide-react")) {
+                return "lucide";
+              }
+              return "vendor";
+            }
+          },
+        },
+      },
     },
   };
 });
