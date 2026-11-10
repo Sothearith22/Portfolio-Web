@@ -16,11 +16,23 @@ const contactSchema = z.object({
 const normalizeEnvValue = (value: string | undefined) =>
   value?.trim().replace(/^["']|["']$/g, "").replace(/[,;]+$/g, "");
 
+const MAX_BODY_SIZE = 10 * 1024; // 10 KB limit to prevent CWE-400 resource exhaustion
+
 const readBody = (req: IncomingMessage) =>
   new Promise<string>((resolve, reject) => {
+    let size = 0;
     const chunks: Buffer[] = [];
 
-    req.on("data", (chunk) => chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)));
+    req.on("data", (chunk: Buffer | Uint8Array) => {
+      const buf = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
+      size += buf.length;
+      if (size > MAX_BODY_SIZE) {
+        req.destroy();
+        reject(new Error("Payload too large. Maximum 10 KB allowed."));
+        return;
+      }
+      chunks.push(buf);
+    });
     req.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
     req.on("error", reject);
   });
@@ -33,6 +45,25 @@ const sendJson = (
   res.statusCode = statusCode;
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.end(JSON.stringify(payload));
+};
+
+// Simple in-memory rate limiter to prevent CWE-770 allocation without limits
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 5;
+
+const checkRateLimit = (ip: string): boolean => {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
+    return false;
+  }
+  if (entry.count >= MAX_REQUESTS_PER_WINDOW) {
+    return true;
+  }
+  entry.count++;
+  return false;
 };
 
 const telegramContactPlugin = (mode: string): Plugin => {
@@ -58,6 +89,18 @@ const telegramContactPlugin = (mode: string): Plugin => {
     const url = new URL(req.url, "http://localhost");
     if (req.method !== "POST" || url.pathname !== contactRoute) {
       next();
+      return;
+    }
+
+    const clientIp =
+      (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ||
+      req.socket.remoteAddress ||
+      "127.0.0.1";
+
+    if (checkRateLimit(clientIp)) {
+      sendJson(res, 429, {
+        error: "Too many requests. Please wait a minute before sending another message.",
+      });
       return;
     }
 
@@ -91,8 +134,10 @@ const telegramContactPlugin = (mode: string): Plugin => {
       let payload: unknown;
       try {
         payload = JSON.parse(await readBody(req));
-      } catch {
-        sendJson(res, 400, { error: "Request body must be valid JSON." });
+      } catch (err) {
+        sendJson(res, 400, {
+          error: err instanceof Error ? err.message : "Request body must be valid JSON.",
+        });
         return;
       }
 
@@ -105,13 +150,16 @@ const telegramContactPlugin = (mode: string): Plugin => {
       }
 
       const { name, email, message } = result.data;
+      const cleanName = name.replace(/[\r\n]+/g, " ");
+      const cleanEmail = email.replace(/[\r\n]+/g, " ");
 
       const text = [
         "New Contact Message",
         "",
-        `Name: ${name}`,
-        `Email: ${email}`,
-        `Message: ${message}`,
+        `Name: ${cleanName}`,
+        `Email: ${cleanEmail}`,
+        "Message:",
+        message,
       ].join("\n");
 
       const telegramResponse = await fetch(

@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { env } from "@/config/env";
 import { profile } from "@/data/portfolio";
 
 const contactSchema = z.object({
@@ -21,38 +20,21 @@ type FieldErrors = Partial<Record<"name" | "email" | "message", string>>;
 type ContactValues = z.infer<typeof contactSchema>;
 
 const sendContactMessage = async (values: ContactValues) => {
-  if (!env.BOT_TOKEN || !env.CHAT_ID) {
-    throw new Error("Telegram environment configuration is missing.");
-  }
+  const response = await fetch("/api/contact", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(values),
+  });
 
-  const text = `
-📩 <b>New Contact Message from Portfolio</b>
+  const data = (await response.json().catch(() => null)) as {
+    ok?: boolean;
+    error?: string;
+  } | null;
 
-👤 <b>Name:</b> ${values.name}
-📧 <b>Email:</b> ${values.email}
-💬 <b>Message:</b>
-${values.message}
-`;
-
-  const response = await fetch(
-    `https://api.telegram.org/bot${env.BOT_TOKEN}/sendMessage`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        chat_id: env.CHAT_ID,
-        text,
-        parse_mode: "HTML",
-      }),
-    }
-  );
-
-  const data = await response.json();
-
-  if (!data.ok) {
-    throw new Error(data.description || "Telegram notification failed to send.");
+  if (!response.ok || !data?.ok) {
+    throw new Error(data?.error || "Failed to send message. Please try again.");
   }
 
   return data;

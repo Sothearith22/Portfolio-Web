@@ -8,7 +8,6 @@ import { Blog } from "@/components/portfolio/Blog";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { profile } from "@/data/portfolio";
-import { env } from "@/config/env";
 
 const Index = () => {
   const jsonLd = {
