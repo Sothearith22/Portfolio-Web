@@ -1,4 +1,3 @@
-import type { IncomingMessage, ServerResponse } from "http";
 import { z } from "zod";
 
 const contactSchema = z.object({
@@ -25,15 +24,22 @@ const checkRateLimit = (ip: string): boolean => {
   return false;
 };
 
-interface VercelRequestLike extends IncomingMessage {
+interface VercelRequestLike {
+  method?: string;
+  headers: Record<string, string | string[] | undefined>;
+  socket?: { remoteAddress?: string };
   body?: unknown;
-  query?: Record<string, string | string[]>;
 }
 
-interface VercelResponseLike extends ServerResponse {
+interface VercelResponseLike {
+  setHeader: (name: string, value: string) => void;
   status: (statusCode: number) => VercelResponseLike;
   json: (body: unknown) => void;
 }
+
+declare const process: {
+  env: Record<string, string | undefined>;
+};
 
 export default async function handler(
   req: VercelRequestLike,
