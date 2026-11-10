@@ -16,7 +16,7 @@ const Index = () => {
     name: profile.name,
     jobTitle: profile.title,
     email: `mailto:${profile.email}`,
-    telephone: profile.phone,
+    ...(("phone" in profile && profile.phone) ? { telephone: profile.phone } : {}),
     url: profile.website,
     sameAs: [profile.socials.github, profile.website].filter(Boolean),
   };

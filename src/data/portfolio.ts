@@ -10,7 +10,6 @@ export const profile = {
   name: "Kim Sothearith",
   title: "Full-Stack Web Developer",
   position: "ODOO DEVELOPER INTERN",
-  phone: "0968435574",
   email: env.contactEmail || "kimsothearith2007@gmail.com",
   location: "Phnom Penh, Cambodia",
   website: "https://portfolio-chi-sandy-61.vercel.app",
@@ -59,11 +58,11 @@ export const skills: SkillCategory[] = [
   },
   {
     category: "Databases",
-    items: ["PostgreSQL", "MySQL"],
+    items: ["PostgreSQL", "MySQL","SQL Server"],
   },
   {
     category: "Developer Tools",
-    items: ["Git", "GitHub", "Docker", "GitHub Actions", "Postman", "Swagger / OpenAPI", "Vite"],
+    items: ["Git", "GitHub", "Docker", "GitHub Actions", "Postman", "Swagger / OpenAPI", "Vite","Ai Agent","Supabase"],
   },
 ];
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import { Check, Clock, Copy, Github, Mail, MapPin, Phone, Send, Sparkles } from "lucide-react";
+import { Check, Clock, Copy, Github, Mail, MapPin, Send, Sparkles } from "lucide-react";
 import { Section } from "./Section";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -185,22 +185,6 @@ export const Contact = () => {
                   github.com/Sothearith22
                 </a>
               </div>
-
-              {/* Phone */}
-              {profile.phone && (
-                <div className="group/item rounded-xl border border-border/70 bg-secondary/50 p-3.5 transition-all duration-300 hover:border-primary/60 hover:-translate-y-1 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] hover:bg-secondary/80">
-                  <div className="flex items-center gap-2.5 text-xs font-mono uppercase tracking-wider text-primary">
-                    <Phone className="h-4 w-4 transition-transform duration-300 group-hover/item:scale-125 group-hover/item:rotate-12" />
-                    Phone
-                  </div>
-                  <a
-                    href={`tel:${profile.phone}`}
-                    className="mt-2 block text-sm font-medium text-foreground hover:text-primary transition-colors truncate"
-                  >
-                    {profile.phone}
-                  </a>
-                </div>
-              )}
 
               {/* Location */}
               <div className="group/item rounded-xl border border-border/70 bg-secondary/50 p-3.5 transition-all duration-300 hover:border-primary/60 hover:-translate-y-1 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] hover:bg-secondary/80">
